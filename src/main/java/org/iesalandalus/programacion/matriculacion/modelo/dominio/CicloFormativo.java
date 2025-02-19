@@ -3,13 +3,12 @@ package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 import java.util.Objects;
 
 public class CicloFormativo {
-
-    public static final int MAXIMO_NUMERO_HORAS=2000;
     private int codigo;
     private String familiaProfesional;
     private Grado grado;
     private String nombre;
     private int horas;
+    public static final int MAXIMO_NUMERO_HORAS=2000;
 
     public CicloFormativo (int codigo, String familiaProfesional, Grado grado, String nombre, int horas) {
         setCodigo(codigo);

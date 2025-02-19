@@ -194,7 +194,6 @@ public class Matricula {
         return asignaturasTexto.toString();
     }
 
-    // TODO
     public String imprimir(){
         return "idMatricula=" + getIdMatricula() + ", " +
                 "curso acad?mico=" + getCursoAcademico() + ", " +

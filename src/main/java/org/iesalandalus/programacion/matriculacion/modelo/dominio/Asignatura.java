@@ -3,14 +3,14 @@ package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 import java.util.Objects;
 
 public class Asignatura {
+    private static final String ER_CODIGO="";
     public static final int MAX_NUM_HORAS_ANUALES = 300;
     public static final int MAX_NUM_HORAS_DESDOBLES = 6;
-    private static final String ER_CODIGO="";
     private String codigo;
     private String nombre;
     private int horasAnuales;
-    private Curso curso;
     private int horasDesdoble;
+    private Curso curso;
     private EspecialidadProfesorado especialidadProfesorado;
     private CicloFormativo cicloFormativo;
 

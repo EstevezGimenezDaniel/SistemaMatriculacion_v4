@@ -9,24 +9,14 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Vista {
     private Controlador controlador;
 
     public Vista() {
         Opcion.setVista(this);
-    }
-    public void comenzar() {
-        Opcion opcion;
-        do {
-            Consola.mostrarMenu();
-            opcion = Consola.elegirOpcion();
-            ejecutarOpcion(opcion);
-        } while (opcion != Opcion.SALIR);
-    }
-    public void terminar() {
-        controlador.terminar();
-
     }
 
     public void setControlador(Controlador controlador) {
@@ -35,89 +25,20 @@ public class Vista {
         }
         this.controlador = controlador;
     }
-    public void ejecutarOpcion(Opcion opcion) {
-        switch (opcion) {
-            case SALIR:
-                System.out.println("Hasta luego!!");
-                System.exit(0);
-            case INSERTAR_ALUMNO:
-                System.out.println("Insertar alumno");
-                insertarAlumno();
-                break;
-            case BUSCAR_ALUMNO:
-                System.out.println("Buscar alumno");
-                buscarAlumno();
-                break;
-            case BORRAR_ALUMNO:
-                System.out.println("Borrar alumno");
-                borrarAlumno();
-                break;
-            case MOSTRAR_ALUMNOS:
-                System.out.println("Mostrar alumnos");
-                mostrarAlumnos();
-                break;
-            case INSERTAR_CICLO_FORMATIVO:
-                System.out.println("Insertar ciclo formativo");
-                insertarCicloFormativo();
-                break;
-            case BUSCAR_CICLO_FORMATIVO:
-                System.out.println("Buscar ciclo formativo");
-                buscarCicloFormativo();
-                break;
-            case BORRAR_CICLO_FORMATIVO:
-                System.out.println("Borrar ciclo formativo");
-                borrarCicloFormativo();
-                break;
-            case MOSTRAR_CICLOS_FORMATIVOS:
-                System.out.println("Mostrar ciclos formativos");
-                mostrarCiclosFormativos();
-                break;
-            case INSERTAR_ASIGNATURA:
-                System.out.println("Insertar asignatura");
-                insertarAsignatura();
-                break;
-            case BUSCAR_ASIGNATURA:
-                System.out.println("Buscar asignatura");
-                buscarAsignatura();
-                break;
-            case BORRAR_ASIGNATURA:
-                System.out.println("Borrar asignatura");
-                borrarAsignatura();
-                break;
-            case MOSTRAR_ASIGNATURAS:
-                System.out.println("Mostrar asignaturas");
-                mostrarAsignaturas();
-                break;
-            case INSERTAR_MATRICULA:
-                System.out.println("Insertar matricula");
-                insertarMatricula();
-                break;
-            case BUSCAR_MATRICULA:
-                System.out.println("Buscar matricula");
-                buscarMatricula();
-                break;
-            case ANULAR_MATRICULA:
-                System.out.println("Borrar matricula");
-                anularMatricula();
-                break;
-            case MOSTRAR_MATRICULAS:
-                System.out.println("Mostrar matriculas");
-                mostrarMatriculas();
-                break;
-            case MOSTRAR_MATRICULAS_ALUMNO:
-                System.out.println("Mostrar matriculas alumno");
-                mostrarMatriculasPorAlumno();
-                break;
-            case MOSTRAR_MATRICULAS_CICLO_FORMATIVO:
-                System.out.println("Mostrar matriculas ciclo formativo");
-                mostrarMatriculasPorCicloFormativo();
-                break;
-            case MOSTRAR_MATRICULAS_CURSO_ACADEMICO:
-                System.out.println("Mostrar matriculas curso academico");
-                mostrarMatriculasPorCursoAcademico();
-                break;
-        }
+
+    public void comenzar() {
+        Opcion opcion;
+        do {
+            Consola.mostrarMenu();
+            opcion = Consola.elegirOpcion();
+            opcion.ejecutar();
+        } while (opcion != Opcion.SALIR);
     }
+
+    public void terminar() {
+        controlador.terminar();
+    }
+
     public void insertarAlumno() {
         try {
             Alumno alumno = Consola.leerAlumno();
@@ -144,6 +65,7 @@ public class Vista {
             System.out.println(e.getMessage());
         }
     }
+
     public void borrarAlumno() {
         try {
             controlador.borrar(Consola.getAlumnoPorDni());
@@ -157,16 +79,19 @@ public class Vista {
         }
 
     }
+
     public void mostrarAlumnos() {
-        Alumno[] arrayAlumnos = controlador.getAlumnos();
-        if (arrayAlumnos.length == 0) {
+        ArrayList<Alumno> arrayAlumnos = controlador.getAlumnos();
+        if (arrayAlumnos.size() == 0) {
             System.out.println("No existen alumnos.");
-        } else if (arrayAlumnos.length > 0) {
+        } else {
+            arrayAlumnos.sort(Comparator.comparing(Alumno::getNombre));
             for (Alumno alumno : arrayAlumnos) {
                 System.out.println(alumno);
             }
         }
     }
+
     public void insertarAsignatura() {
         try {
             CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
@@ -184,6 +109,7 @@ public class Vista {
             System.out.println(e.getMessage());
         }
     }
+
     public void buscarAsignatura() {
         try {
             Asignatura asignaturaBuscar = controlador.buscar(Consola.getAsignaturaPorCodigo());
@@ -197,6 +123,7 @@ public class Vista {
             System.out.println("ERROR: No se puede buscar una asignatura nula.");
         }
     }
+
     public void borrarAsignatura() {
         try {
             Asignatura asignaturaBorrar = Consola.getAsignaturaPorCodigo();
@@ -210,16 +137,19 @@ public class Vista {
             throw new RuntimeException(e);
         }
     }
+
     public void mostrarAsignaturas() {
-        Asignatura[] arrayAsignatura = controlador.getAsignaturas();
-        if (arrayAsignatura.length == 0) {
+        ArrayList<Asignatura> arrayAsignatura = controlador.getAsignaturas();
+        if (arrayAsignatura.size() == 0) {
             System.out.println("No existen asignaturas.");
-        } else if (arrayAsignatura.length > 0) {
+        } else {
+            arrayAsignatura.sort(Comparator.comparing(Asignatura::getNombre));
             for (Asignatura asignatura : arrayAsignatura) {
                 System.out.println(asignatura);
             }
         }
     }
+
     public void insertarCicloFormativo() {
         try {
             CicloFormativo ciclosFormativo = Consola.leerCicloFormativo();
@@ -231,6 +161,7 @@ public class Vista {
             System.out.println(e.getMessage());
         }
     }
+
     public void buscarCicloFormativo() {
         try {
             CicloFormativo cicloFormativoBuscar = controlador.buscar(Consola.getCicloFormativoPorCodigo());
@@ -246,6 +177,7 @@ public class Vista {
             System.out.println(e.getMessage());
         }
     }
+
     public void borrarCicloFormativo() {
         try {
             CicloFormativo cicloFormativoBorrar = Consola.getCicloFormativoPorCodigo();
@@ -259,16 +191,19 @@ public class Vista {
             throw new RuntimeException(e);
         }
     }
-    public void mostrarCiclosFormativos() {
-        CicloFormativo[] arrayCicloFormativo = controlador.getCicloFormativos();
-        if (arrayCicloFormativo.length == 0) {
+
+    public void mostrarCicloFormativos() {
+        ArrayList<CicloFormativo> arrayCicloFormativo = controlador.getCicloFormativos();
+        if (arrayCicloFormativo.size() == 0) {
             System.out.println("No existen ciclos formativos.");
-        } else if (arrayCicloFormativo.length > 0) {
+        } else {
+            arrayCicloFormativo.sort(Comparator.comparing(CicloFormativo::getNombre));
             for (CicloFormativo cicloFormativo : arrayCicloFormativo) {
                 System.out.println(cicloFormativo);
             }
         }
     }
+
     public void insertarMatricula() {
         try {
             System.out.println("Datos del alumno:");
@@ -279,7 +214,7 @@ public class Vista {
                 return;
             }
             System.out.println("Asignaturas de la matricula:");
-            Asignatura[] matriculaAsignaturas = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
+            ArrayList<Asignatura> matriculaAsignaturas = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
             System.out.println("Datos de la matricula:");
             Matricula matricula = Consola.leerMatricula(a, matriculaAsignaturas);
             controlador.insertar(matricula);
@@ -290,6 +225,7 @@ public class Vista {
             System.out.println(e.getMessage());
         }
     }
+
     public void buscarMatricula() {
         try {
             Matricula matriculaBuscar = controlador.buscar(Consola.getMatriculaPorIdentificador());
@@ -313,7 +249,6 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Matricula matriculaAnular = controlador.buscar(Consola.getMatriculaPorIdentificador());
             if (matriculaAnular != null && matriculaAnular.getAlumno().equals(alumno)) {
-                controlador.borrar(matriculaAnular);
                 System.out.println("indique la fecha de anulación:");
                 String fechaAnulacion = (Entrada.cadena());
                 LocalDate fechaAnular;
@@ -331,10 +266,14 @@ public class Vista {
     }
     public void mostrarMatriculas() {
         try {
-            Matricula[] arrayMatriculas = controlador.getMatriculas();
-            if (arrayMatriculas.length == 0) {
+            ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas();
+            if (arrayMatriculas.size() == 0) {
                 System.out.println("No existen Matriculas.");
-            }else if (arrayMatriculas.length > 0) {
+            } else {
+                arrayMatriculas.sort(
+                        Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
+                                .thenComparing(m -> m.getAlumno().getNombre())
+                );
                 for (Matricula matricula : arrayMatriculas) {
                     System.out.println(matricula);
                 }
@@ -343,13 +282,21 @@ public class Vista {
             System.out.println("ERROR: No se pudo mostrar matriculas.");
         }
     }
+
+    /**
+     * Muestra las matrículas de un alumno.
+     */
     public void mostrarMatriculasPorAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
-            Matricula[] arrayMatricula = controlador.getMatriculas(alumno);
-            if(arrayMatricula.length == 0) {
+            ArrayList<Matricula> arrayMatricula = controlador.getMatriculas(alumno);
+            if (arrayMatricula.size() == 0) {
                 System.out.println("No existen matriculas para el alumno indicado.");
-            }else {
+            } else {
+                arrayMatricula.sort(
+                        Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
+                                .thenComparing(m -> m.getAlumno().getNombre())
+                );
                 for (Matricula matricula : arrayMatricula) {
                     System.out.println(matricula);
                 }
@@ -358,36 +305,62 @@ public class Vista {
             System.out.println("ERROR: No se pueden mostrar matriculas por alumno");
         }
     }
+
+    /**
+     * Muestra las matrículas de un ciclo formativo.
+     */
     public void mostrarMatriculasPorCicloFormativo() {
         CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
         cicloFormativo = controlador.buscar(cicloFormativo);
         if (cicloFormativo == null) {
             System.out.println("No existe ningun ciclo formativo con tales datos.");
         }
-        Matricula[] matriculaCiclo = controlador.getMatriculas(cicloFormativo);
-        if (matriculaCiclo.length == 0) {
-            System.out.println("No existen matriculas para el ciclo formativo indicado.");
+        ArrayList<Matricula> matriculaCiclo;
+        try {
+            matriculaCiclo = controlador.getMatriculas(cicloFormativo);
+            if (matriculaCiclo.size() == 0) {
+                System.out.println("No existen matriculas para el ciclo formativo indicado.");
+            }
+
+            System.out.println("Matrículas del ciclo formativo " + cicloFormativo.getCodigo() + ":");
+            matriculaCiclo.sort(
+                    Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
+                            .thenComparing(m -> m.getAlumno().getNombre())
+            );
+            for (Matricula matricula : matriculaCiclo) {
+                System.out.println(matricula);
+            }
+        } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
         }
 
-        System.out.println("Matrículas del ciclo formativo " + cicloFormativo.getCodigo() + ":");
-        for (Matricula matricula : matriculaCiclo) {
-            System.out.println(matricula);
-        }
     }
+
+    /**
+     * Muestra las matrículas de un curso académico.
+     */
     public void mostrarMatriculasPorCursoAcademico() {
-        System.out.println("indique el curso academico:");
-        System.out.println("El formato del curso es YY-YY");
-        String cursoAcademico = Entrada.cadena();
-        Matricula[] arrayMatriculas = controlador.getMatriculas(cursoAcademico);
+        try {
+            System.out.println("indique el curso academico:");
+            System.out.println("El formato del curso es YY-YY");
+            String cursoAcademico = Entrada.cadena();
+            ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas(cursoAcademico);
 
-        if (arrayMatriculas.length == 0) {
-            System.out.println("No existen matrículas para el curso académico indicado.");
-            return;
-        }
+            if (arrayMatriculas.size() == 0) {
+                System.out.println("No existen matrículas para el curso académico indicado.");
+                return;
+            }
 
-        System.out.println("Matrículas del curso académico " + cursoAcademico + ":");
-        for (Matricula matricula : arrayMatriculas) {
-            System.out.println(matricula);
+            System.out.println("Matrículas del curso académico " + cursoAcademico + ":");
+            arrayMatriculas.sort(
+                    Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
+                            .thenComparing(m -> m.getAlumno().getNombre())
+            );
+            for (Matricula matricula : arrayMatriculas) {
+                System.out.println(matricula);
+            }
+        } catch (OperationNotSupportedException e) {
+            System.out.println("ERROR: No se pudo mostrar matriculas por curso academico.");
         }
 
     }
