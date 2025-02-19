@@ -12,15 +12,12 @@ import java.util.Arrays;
 
 
 public class Consola {
-    private Consola() {
-    }
-
+    private Consola() {}
     public static void mostrarMenu() {
         for (Opcion opcion : Opcion.values()) {
             System.out.println(opcion.toString());
         }
     }
-
     public static Opcion elegirOpcion() {
         int opcion;
         do {
@@ -29,7 +26,6 @@ public class Consola {
         } while (!(opcion >= 0 && opcion <= Opcion.values().length - 1));
         return Opcion.values()[opcion];
     }
-
     public static Alumno leerAlumno() {
         String nombre;
         String telefono;
@@ -37,7 +33,7 @@ public class Consola {
         String dni;
         LocalDate fechaNacimiento;
 
-        System.out.println("Datos del alumno: ");
+        System.out.println("Introduce los datos del alumno: ");
         do {
             System.out.println("\nIntroduce el nombre del alumno: ");
             nombre = Entrada.cadena();
@@ -66,7 +62,6 @@ public class Consola {
         return new Alumno(nombre, dni, correo, telefono, fechaNacimiento);
 
     }
-
     public static Alumno getAlumnoPorDni() {
         String nombre = "ficticio";
         String telefono = "111111111";
@@ -81,7 +76,6 @@ public class Consola {
 
         return new Alumno(nombre, dni, correo, telefono, fechaNacimiento);
     }
-
     public static LocalDate leerFecha(String mensaje) {
         do {
             try {
@@ -93,9 +87,6 @@ public class Consola {
             }
         } while (true);
     }
-
-
-
     public static TiposGrado leerTiposGrado() {
         int seleccion;
         do {
@@ -119,8 +110,6 @@ public class Consola {
         } while (seleccion < 0 || seleccion >= Modalidad.values().length);
         return Modalidad.values()[seleccion];
     }
-
-
     public static CicloFormativo leerCicloFormativo() {
         int codigo;
         String familiaProfesional;
@@ -156,36 +145,32 @@ public class Consola {
 
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
-
     public static Grado leerGrado() {
-        String nombre;
+        TiposGrado tg = leerTiposGrado();
+
+        String nombre = "";
         do {
             System.out.println("Introduce el nombre del grado:");
-            nombre=Entrada.cadena();
+            nombre = Entrada.cadena();
         } while (nombre.isBlank());
 
-        int numAnios=-1;
-        TiposGrado tiposGrado;
+        int numAnios = -1;
         do {
-            numAnios=Entrada.entero();
-        } while ((tiposGrado == TiposGrado.GRADOD && (numAnios < 2 || numAnios > 3)
-                || tiposGrado == TiposGrado.GRADOE && numAnios != 1));
-
-        if (tiposGrado==TiposGrado.GRADOD){
-            Modalidad modalidad = leerModalidad();
-            return new GradoD(nombre, numAnios, modalidad);
-
-        } else {
+            numAnios = Entrada.entero();
+        } while ((tg == TiposGrado.GRADOD && (numAnios < 2 || numAnios > 3)
+                || tg == TiposGrado.GRADOE && numAnios != 1));
+        if(tg == TiposGrado.GRADOD) {
+            Modalidad m = leerModalidad();
+            return new GradoD(nombre, numAnios, m);
+        }else {
             int numEdiciones = -1;
             do {
-                System.out.println("Introduce el numero de ediciones.");
+                System.out.println("Introduzca el numero de ediciones:");
                 numEdiciones = Entrada.entero();
             } while (numEdiciones < 1);
-
             return new GradoE(nombre, numAnios, numEdiciones);
         }
     }
-
     public static void mostrarCiclosFormativos(ArrayList<CicloFormativo> ciclosFormativos) {
         System.out.println("Lista de ciclos formativos disponibles:");
         if (ciclosFormativos.size() == 0) {
@@ -199,18 +184,17 @@ public class Consola {
         }
     }
     public static CicloFormativo getCicloFormativoPorCodigo() {
-            int codigo;
-            String familiaProfesional = "ficticia";
-            Grado grado = new GradoD("grado ficticio", 2, Modalidad.PRESENCIAL);
-            String nombre = "ficticio";
-            int horas = 1;
-            do {
-                System.out.println("\nIntroduce el codigo del ciclo formativo: ");
-                codigo = Entrada.entero();
-            } while (codigo < 0);
-            return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
+        int codigo;
+        String familiaProfesional = "ficticia";
+        Grado grado = new GradoD("grado ficticio", 2, Modalidad.PRESENCIAL);
+        String nombre = "ficticio";
+        int horas = 1;
+        do {
+            System.out.println("\nIntroduce el codigo del ciclo formativo: ");
+            codigo = Entrada.entero();
+        } while (codigo < 0);
+        return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
-
     public static Curso leerCurso() {
         int seleccion;
         do {
@@ -222,11 +206,10 @@ public class Consola {
         } while (seleccion < 0 || seleccion >= Curso.values().length);
         return Curso.values()[seleccion];
     }
-
     public static EspecialidadProfesorado leerEspecialidadProfesorado() {
         int seleccion;
         do {
-            System.out.println("\nIntroduce la especialidad del profesorado de la asignatura: ");
+            System.out.println("\nIntroduce la especialidad profesorada de la asignatura: ");
             for (EspecialidadProfesorado especialidadProfesorado : EspecialidadProfesorado.values()) {
                 System.out.println(especialidadProfesorado.imprimir());
             }
@@ -234,7 +217,6 @@ public class Consola {
         } while (seleccion < 0 || seleccion >= EspecialidadProfesorado.values().length);
         return EspecialidadProfesorado.values()[seleccion];
     }
-
     public static Asignatura leerAsignatura(CicloFormativo cicloFormativo) {
         String codigo;
         String nombre;
@@ -272,14 +254,13 @@ public class Consola {
         return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado,
                 cicloFormativo);
     }
-
     public static Asignatura getAsignaturaPorCodigo() {
         String codigo;
-        String nombre = "AsigFicticia";
-        int horasAnuales = 10;
+        String nombre = "Asignaturaficticia";
+        int horasAnuales = 13;
         Curso curso = Curso.PRIMERO;
         int horasDesdoble = 5;
-        Grado grado = new GradoD("ficticio", 2, Modalidad.PRESENCIAL);
+        Grado grado = new GradoD("grado ficticio", 2, Modalidad.PRESENCIAL);
         EspecialidadProfesorado especialidadProfesorado = EspecialidadProfesorado.SISTEMAS;
         CicloFormativo cicloFormativo = new CicloFormativo(9999, "ficticio", grado, "ficticio", 200);
         Asignatura asignatura;
@@ -292,8 +273,7 @@ public class Consola {
 
         return new Asignatura(asignatura);
     }
-
-    private static void mostrarAsignaturas(Asignatura[] asignaturas) {
+    private static void mostrarAsignaturas(ArrayList<Asignatura> asignaturas) {
         System.out.println("Listado de Asignaturas disponibles:");
         for (Asignatura asignatura : asignaturas) {
             if (asignatura != null) {
@@ -301,11 +281,11 @@ public class Consola {
             }
         }
     }
+    private static boolean asignaturaYaMatriculada(ArrayList<Asignatura> asignaturasMatricula, Asignatura asignatura) {
 
-    protected static boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
         if (asignaturasMatricula != null) {
-            for (int i = 0; i < asignaturasMatricula.length; i++) {
-                if (asignaturasMatricula[i] != null && asignaturasMatricula[i].equals(asignatura)) {
+            for (int i = 0; i < asignaturasMatricula.size(); i++) {
+                if (asignaturasMatricula.get(i)!= null && asignaturasMatricula.get(i).equals(asignatura)) {
                     return true;
                 }
             }
@@ -313,13 +293,13 @@ public class Consola {
         return false;
     }
 
-    public static Matricula leerMatricula(Alumno alumno, Asignatura[] asignaturas)
+    public static Matricula leerMatricula(Alumno alumno, ArrayList<Asignatura> asignaturas)
             throws OperationNotSupportedException {
 
         if (alumno == null) {
             throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
         }
-        if (asignaturas == null || asignaturas.length == 0) {
+        if (asignaturas == null || asignaturas.size() == 0) {
             throw new NullPointerException("ERROR: Las asignaturas de una matrícula no pueden ser nulas.");
         }
 
@@ -344,16 +324,14 @@ public class Consola {
 
         return matricula;
     }
-
-    public static Asignatura[] elegirAsignaturasMatricula(Asignatura[] asignaturas)
+    public static ArrayList<Asignatura> elegirAsignaturasMatricula(ArrayList<Asignatura> asignaturas)
             throws OperationNotSupportedException {
 
-        if (asignaturas == null || asignaturas.length == 0) {
+        if (asignaturas == null || asignaturas.size() == 0) {
             throw new IllegalArgumentException("ERROR: No hay asignaturas disponibles para seleccionar.");
         }
 
-        Asignatura[] asignaturasMatricula = new Asignatura[asignaturas.length];
-        int asignaturasSeleccionadas = 0;
+        ArrayList<Asignatura> asignaturasMatricula = new ArrayList<>();
         int opcion = 0;
 
         do {
@@ -368,23 +346,21 @@ public class Consola {
                     break;
                 }
             }
+
             if (asignatura == null) {
                 System.out.println("ERROR: La asignatura seleccionada no es válida.");
                 continue;
             }
-
             if (asignaturaYaMatriculada(asignaturasMatricula, asignatura)) {
                 System.out.println("La asignatura ya está seleccionada.");
             } else {
-                asignaturasMatricula[asignaturasSeleccionadas++] = asignatura;
+                asignaturasMatricula.add(asignatura);
                 System.out.println("Asignatura añadida correctamente.");
             }
-
             System.out.print("¿Desea añadir otra asignatura? (0 = No, 1 = Sí): ");
             opcion = Entrada.entero();
-        } while (opcion == 1 && asignaturasSeleccionadas < asignaturas.length);
-
-        return Arrays.copyOf(asignaturasMatricula, asignaturasSeleccionadas);
+        } while (opcion == 1 && asignaturasMatricula.size() < asignaturas.size());
+        return asignaturasMatricula;
     }
 
     public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {
@@ -401,5 +377,5 @@ public class Consola {
 
         return matricula;
     }
-}
 
+}

@@ -282,10 +282,6 @@ public class Vista {
             System.out.println("ERROR: No se pudo mostrar matriculas.");
         }
     }
-
-    /**
-     * Muestra las matrículas de un alumno.
-     */
     public void mostrarMatriculasPorAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
@@ -295,8 +291,7 @@ public class Vista {
             } else {
                 arrayMatricula.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
-                                .thenComparing(m -> m.getAlumno().getNombre())
-                );
+                                .thenComparing(m -> m.getAlumno().getNombre()));
                 for (Matricula matricula : arrayMatricula) {
                     System.out.println(matricula);
                 }
@@ -305,10 +300,6 @@ public class Vista {
             System.out.println("ERROR: No se pueden mostrar matriculas por alumno");
         }
     }
-
-    /**
-     * Muestra las matrículas de un ciclo formativo.
-     */
     public void mostrarMatriculasPorCicloFormativo() {
         CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
         cicloFormativo = controlador.buscar(cicloFormativo);
@@ -335,10 +326,6 @@ public class Vista {
         }
 
     }
-
-    /**
-     * Muestra las matrículas de un curso académico.
-     */
     public void mostrarMatriculasPorCursoAcademico() {
         try {
             System.out.println("indique el curso academico:");
