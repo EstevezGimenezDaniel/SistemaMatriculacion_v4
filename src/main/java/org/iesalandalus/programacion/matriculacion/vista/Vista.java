@@ -57,10 +57,10 @@ public class Vista {
             if (alumnoBuscado != null) {
                 System.out.printf("Los datos del alumno solicitado son: %s", alumnoBuscado);
             } else {
-                System.out.println("No existe ningun alumno con tales datos.");
+                System.out.println("No existe ningún alumno con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: 3.No se puede buscar un Alumno nulo.");
+            System.out.println("ERROR: No se puede buscar un Alumno nulo.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -169,7 +169,7 @@ public class Vista {
             if (encontrada != null) {
                 System.out.printf("Los datos del ciclo formativo solicitado son: %s", cicloFormativoBuscar);
             } else {
-                System.out.println("No existe ningun ciclo formativo con tales datos.");
+                System.out.println("No existe ningún ciclo formativo con tales datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
@@ -182,7 +182,7 @@ public class Vista {
         try {
             CicloFormativo cicloFormativoBorrar = Consola.getCicloFormativoPorCodigo();
             controlador.borrar(cicloFormativoBorrar);
-            System.out.println("Ciclo formativo borrada correctamente.");
+            System.out.println("Ciclo formativo borrado correctamente.");
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede borrar un ciclo formativo nulo.");
         } catch (IllegalArgumentException e) {
@@ -233,7 +233,7 @@ public class Vista {
             if (encontrada != null) {
                 System.out.printf("Los datos del ciclo formativo solicitado son: %s", matriculaBuscar);
             } else {
-                System.out.println("No existe ningun ciclo formativo con tales datos.");
+                System.out.println("No existe ningún ciclo formativo con tales datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
@@ -249,7 +249,7 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Matricula matriculaAnular = controlador.buscar(Consola.getMatriculaPorIdentificador());
             if (matriculaAnular != null && matriculaAnular.getAlumno().equals(alumno)) {
-                System.out.println("indique la fecha de anulación:");
+                System.out.println("Indique la fecha de anulación:");
                 String fechaAnulacion = (Entrada.cadena());
                 LocalDate fechaAnular;
                 fechaAnular = LocalDate.parse(fechaAnulacion);
@@ -279,7 +279,7 @@ public class Vista {
                 }
             }
         } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar matriculas.");
+            System.out.println("ERROR: No se pudieron mostrar matriculas.");
         }
     }
     public void mostrarMatriculasPorAlumno() {
@@ -304,7 +304,7 @@ public class Vista {
         CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
         cicloFormativo = controlador.buscar(cicloFormativo);
         if (cicloFormativo == null) {
-            System.out.println("No existe ningun ciclo formativo con tales datos.");
+            System.out.println("ERROR: El ciclo formativo de una matrícula no puede ser nulo.");
         }
         ArrayList<Matricula> matriculaCiclo;
         try {
@@ -328,7 +328,7 @@ public class Vista {
     }
     public void mostrarMatriculasPorCursoAcademico() {
         try {
-            System.out.println("indique el curso academico:");
+            System.out.println("Indique el curso académico:");
             System.out.println("El formato del curso es YY-YY");
             String cursoAcademico = Entrada.cadena();
             ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas(cursoAcademico);
@@ -347,7 +347,7 @@ public class Vista {
                 System.out.println(matricula);
             }
         } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar matriculas por curso academico.");
+            System.out.println("ERROR: No se pudo mostrar matriculas por curso académico.");
         }
 
     }

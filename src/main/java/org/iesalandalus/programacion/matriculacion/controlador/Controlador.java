@@ -31,7 +31,7 @@ public class Controlador {
     }
     public void terminar() {
         modelo.terminar();
-//        vista.terminar();
+//      vista.terminar();
     }
 
     public void insertar(Alumno alumno) throws OperationNotSupportedException {

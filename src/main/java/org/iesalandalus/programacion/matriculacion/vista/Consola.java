@@ -21,7 +21,7 @@ public class Consola {
     public static Opcion elegirOpcion() {
         int opcion;
         do {
-            System.out.print("Elige una opcion del menu: ");
+            System.out.print("Elige una opción del menu: ");
             opcion = Entrada.entero();
         } while (!(opcion >= 0 && opcion <= Opcion.values().length - 1));
         return Opcion.values()[opcion];
@@ -40,7 +40,7 @@ public class Consola {
         } while (nombre.isBlank());
 
         do {
-            System.out.println("\nIntroduce el telefono del alumno: ");
+            System.out.println("\nIntroduce el teléfono del alumno: ");
             telefono = Entrada.cadena();
         } while (telefono.isBlank());
 
@@ -64,10 +64,10 @@ public class Consola {
     }
     public static Alumno getAlumnoPorDni() {
         String nombre = "ficticio";
-        String telefono = "111111111";
-        String correo = "ficticio@inventado.es";
-        String dni = "00000000A";
-        LocalDate fechaNacimiento = LocalDate.of(1991, 12, 12);
+        String telefono = "000000000";
+        String correo = "ficticio@gmail.com";
+        String dni = "11111111A";
+        LocalDate fechaNacimiento = LocalDate.of(2000, 01, 01);
 
         do {
             System.out.println("\nIntroduce el DNI del alumno: ");
@@ -117,7 +117,7 @@ public class Consola {
         String nombre;
         int horas;
         do {
-            System.out.println("\nIntroduce el codigo del ciclo formativo: ");
+            System.out.println("\nIntroduce el código del ciclo formativo: ");
             codigo = Entrada.entero();
         } while (codigo < 0);
 
@@ -135,14 +135,12 @@ public class Consola {
 
         do {
             System.out.println("\nIntroduce las horas del ciclo formativo: ");
-            System.out.println("El maximo numero de horas es " + CicloFormativo.MAXIMO_NUMERO_HORAS);
+            System.out.println("El máximo numero de horas es " + CicloFormativo.MAXIMO_NUMERO_HORAS);
             horas = Entrada.entero();
         } while (horas < 0);
         if (horas > CicloFormativo.MAXIMO_NUMERO_HORAS) {
-            throw new IllegalArgumentException(
-                    "ERROR: El numero de horas no puede ser mayor que " + CicloFormativo.MAXIMO_NUMERO_HORAS);
+            throw new IllegalArgumentException("ERROR: El número de horas no puede ser mayor que " + CicloFormativo.MAXIMO_NUMERO_HORAS);
         }
-
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
     public static Grado leerGrado() {
@@ -159,18 +157,20 @@ public class Consola {
             numAnios = Entrada.entero();
         } while ((tg == TiposGrado.GRADOD && (numAnios < 2 || numAnios > 3)
                 || tg == TiposGrado.GRADOE && numAnios != 1));
+
         if(tg == TiposGrado.GRADOD) {
             Modalidad m = leerModalidad();
             return new GradoD(nombre, numAnios, m);
         }else {
             int numEdiciones = -1;
             do {
-                System.out.println("Introduzca el numero de ediciones:");
+                System.out.println("Introduzca el número de ediciones:");
                 numEdiciones = Entrada.entero();
             } while (numEdiciones < 1);
             return new GradoE(nombre, numAnios, numEdiciones);
         }
     }
+
     public static void mostrarCiclosFormativos(ArrayList<CicloFormativo> ciclosFormativos) {
         System.out.println("Lista de ciclos formativos disponibles:");
         if (ciclosFormativos.size() == 0) {
@@ -186,11 +186,11 @@ public class Consola {
     public static CicloFormativo getCicloFormativoPorCodigo() {
         int codigo;
         String familiaProfesional = "ficticia";
-        Grado grado = new GradoD("grado ficticio", 2, Modalidad.PRESENCIAL);
+        Grado grado = new GradoD("ficticio", 2, Modalidad.PRESENCIAL);
         String nombre = "ficticio";
         int horas = 1;
         do {
-            System.out.println("\nIntroduce el codigo del ciclo formativo: ");
+            System.out.println("\nIntroduce el código del ciclo formativo: ");
             codigo = Entrada.entero();
         } while (codigo < 0);
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
@@ -209,7 +209,7 @@ public class Consola {
     public static EspecialidadProfesorado leerEspecialidadProfesorado() {
         int seleccion;
         do {
-            System.out.println("\nIntroduce la especialidad profesorada de la asignatura: ");
+            System.out.println("\nIntroduce la especialidad del profesorado de la asignatura: ");
             for (EspecialidadProfesorado especialidadProfesorado : EspecialidadProfesorado.values()) {
                 System.out.println(especialidadProfesorado.imprimir());
             }
@@ -225,8 +225,8 @@ public class Consola {
         int horasDesdoble;
         EspecialidadProfesorado especialidadProfesorado;
         do {
-            System.out.println("\nIntroduce el codigo de la asignatura: ");
-            System.out.println("El codigo debe tener un formato de 4 digitos.");
+            System.out.println("\nIntroduce el código de la asignatura: ");
+            System.out.println("El código debe tener un formato de 4 dígitos.");
             codigo = Entrada.cadena();
         } while (codigo.isBlank());
 
@@ -237,7 +237,7 @@ public class Consola {
 
         do {
             System.out.println("\nIntroduce las horas anuales de la asignatura: ");
-            System.out.println("El numero de horas tiene que ser entre 0 y 300.");
+            System.out.println("El número de horas tiene que ser entre 0 y 300.");
             horasAnuales = Entrada.entero();
         } while (horasAnuales < 0);
 
@@ -245,7 +245,7 @@ public class Consola {
 
         do {
             System.out.println("\nIntroduce las horas desdoble de la asignatura: ");
-            System.out.println("El numero de horas de desdoble tiene que ser entre 0 y 6");
+            System.out.println("El número de horas de desdoble tiene que ser entre 0 y 6");
             horasDesdoble = Entrada.entero();
         } while (horasDesdoble < 0);
 
@@ -256,16 +256,16 @@ public class Consola {
     }
     public static Asignatura getAsignaturaPorCodigo() {
         String codigo;
-        String nombre = "Asignaturaficticia";
+        String nombre = "ficticio";
         int horasAnuales = 13;
         Curso curso = Curso.PRIMERO;
         int horasDesdoble = 5;
-        Grado grado = new GradoD("grado ficticio", 2, Modalidad.PRESENCIAL);
+        Grado grado = new GradoD("ficticio", 2, Modalidad.PRESENCIAL);
         EspecialidadProfesorado especialidadProfesorado = EspecialidadProfesorado.SISTEMAS;
         CicloFormativo cicloFormativo = new CicloFormativo(9999, "ficticio", grado, "ficticio", 200);
         Asignatura asignatura;
         do {
-            System.out.println("\nIntroduce el codigo de la asignatura: ");
+            System.out.println("\nIntroduce el código de la asignatura: ");
             codigo = Entrada.cadena();
         } while (codigo == null || codigo.isBlank());
         asignatura = new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado,
@@ -312,12 +312,12 @@ public class Consola {
         idMatricula = Entrada.entero();
 
         System.out.println("Introduzca el Curso Académico.");
-        System.out.println("El curso academico tiene que tener el formato 24-25");
+        System.out.println("El curso académico tiene que tener el formato 24-25");
         cursoAcademico = Entrada.cadena();
 
         String mensaje = "Introduzca la Fecha de matriculación.";
 
-        System.out.println("La fecha de matriculación como maximo puede ser de 15 días anterior al día actual");
+        System.out.println("La fecha de matriculación como máximo puede ser de 15 días anterior al día actual");
         fechaMatriculacion = leerFecha(mensaje);
 
         matricula = new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas);
@@ -367,7 +367,7 @@ public class Consola {
         int idMatricula;
         String cursoAcademico = "24-25";
         LocalDate fechaMatriculacion = LocalDate.now();
-        Alumno alumno = new Alumno("ficticio apellidoficticio", "00000000B", "ficticio@ficticio.es", "444444444",
+        Alumno alumno = new Alumno("ficticio ficticio", "00000000B", "ficticio@gmail.com", "000000000",
                 LocalDate.of(2013, 8, 21));
 
         System.out.println("Introduzca el id de la Matrícula.");

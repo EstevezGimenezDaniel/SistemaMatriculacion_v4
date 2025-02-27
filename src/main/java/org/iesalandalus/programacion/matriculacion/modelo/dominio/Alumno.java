@@ -39,42 +39,6 @@ public class Alumno {
         setFechaNacimiento(alumno.getFechaNacimiento());
     }
 
-    private String formateaNombre(String nombre) {
-        String[] tokens = nombre.trim().toLowerCase().split("[ ]+");
-        String nombreCompleto = "";
-        for (String token : tokens) {
-            nombreCompleto += token.substring(0, 1).toUpperCase() + token.substring(1) + " ";
-        }
-        return nombreCompleto.trim();
-    }
-
-    private boolean comprobarLetraDni(String dni) {
-        int numero;
-        char letra;
-        Pattern patron = Pattern.compile(ER_DNI);
-        Matcher comparador = patron.matcher(dni);
-        char[] LETRAS_DNI = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V',
-                'H', 'L', 'C', 'K', 'E' };
-        if (comparador.matches()) {
-            numero = Integer.parseInt(comparador.group(1));
-            letra = comparador.group(2).charAt(0);
-        } else {
-            return false;
-        }
-        int n = numero % 23;
-        if (letra != LETRAS_DNI[n]) {
-            throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
-        }
-        return true;
-    }
-    private String getIniciales() {
-        String[] tokens = nombre.trim().toUpperCase().split("[ ]+");
-        String s = "";
-        for (String token : tokens) {
-            s += token.substring(0, 1);
-        }
-        return s;
-    }
 
     public String getNia() {
         return this.nia;
@@ -103,6 +67,15 @@ public class Alumno {
         this.nombre = formateaNombre(nombre);
         setNia();
     }
+    private String formateaNombre(String nombre) {
+        String[] tokens = nombre.trim().toLowerCase().split("[ ]+");
+        String nombreCompleto = "";
+        for (String token : tokens) {
+            nombreCompleto += token.substring(0, 1).toUpperCase() + token.substring(1) + " ";
+        }
+        return nombreCompleto.trim();
+    }
+
     public String getTelefono() {
         return telefono;
     }
@@ -139,6 +112,25 @@ public class Alumno {
         this.dni = dni.toUpperCase();
     }
 
+    private boolean comprobarLetraDni(String dni) {
+        int numero;
+        char letra;
+        Pattern patron = Pattern.compile(ER_DNI);
+        Matcher comparador = patron.matcher(dni);
+        char[] LETRAS_DNI = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V',
+                'H', 'L', 'C', 'K', 'E' };
+        if (comparador.matches()) {
+            numero = Integer.parseInt(comparador.group(1));
+            letra = comparador.group(2).charAt(0);
+        } else {
+            return false;
+        }
+        int n = numero % 23;
+        if (letra != LETRAS_DNI[n]) {
+            throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
+        }
+        return true;
+    }
     public LocalDate getFechaNacimiento() {
         return this.fechaNacimiento;
     }
@@ -151,6 +143,14 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    private String getIniciales() {
+        String[] tokens = nombre.trim().toUpperCase().split("[ ]+");
+        String s = "";
+        for (String token : tokens) {
+            s += token.substring(0, 1);
+        }
+        return s;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -166,17 +166,16 @@ public class Alumno {
         return Objects.hash(dni);
     }
 
+    public String imprimir() {
+        return String.format("nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", this.getNombre(),
+                this.getIniciales(), this.getDni(), this.getCorreo(), this.getTelefono(),
+                this.getFechaNacimiento().format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
+    }
     @Override
     public String toString() {
         return String.format(
                 "Número de Identificación del Alumnado (NIA)=%s nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s",
                 this.getNia(), this.getNombre(), this.getIniciales(), this.getDni(), this.getCorreo(),
                 this.getTelefono(), this.getFechaNacimiento().format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
-    }
-
-    public String imprimir() {
-        return String.format("nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", this.getNombre(),
-                this.getIniciales(), this.getDni(), this.getCorreo(), this.getTelefono(),
-                this.getFechaNacimiento().format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
     }
 }

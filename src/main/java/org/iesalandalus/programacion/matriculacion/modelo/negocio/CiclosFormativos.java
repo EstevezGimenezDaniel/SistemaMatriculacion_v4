@@ -21,8 +21,8 @@ public class CiclosFormativos {
 
     private ArrayList<CicloFormativo> copiaProfundaCiclosFormativos() {
         ArrayList<CicloFormativo> copiaCiclosFormativos = new ArrayList<>();
-        for (int i = 0; i < this.coleccionCiclosFormativos.size(); i++) {
-            copiaCiclosFormativos.add(new CicloFormativo(coleccionCiclosFormativos.get(i)));
+        for (CicloFormativo c : coleccionCiclosFormativos) {
+            copiaCiclosFormativos.add(new CicloFormativo(c));
         }
         return copiaCiclosFormativos;
     }

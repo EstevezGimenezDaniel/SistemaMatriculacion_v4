@@ -12,13 +12,16 @@ public class Asignaturas {
     public Asignaturas() {
         coleccionAsignaturas = new ArrayList<>();
     }
+
     public ArrayList<Asignatura> get() {
+
         return copiaProfundaAsignaturas();
     }
+
     private ArrayList<Asignatura> copiaProfundaAsignaturas() {
         ArrayList<Asignatura> copiaAsignaturas = new ArrayList<>();
-        for (int i = 0; i < coleccionAsignaturas.size(); i++) {
-            copiaAsignaturas.add(new Asignatura(coleccionAsignaturas.get(i)));
+        for (Asignatura a : coleccionAsignaturas) {
+            copiaAsignaturas.add(new Asignatura(a));
         }
         return copiaAsignaturas;
     }

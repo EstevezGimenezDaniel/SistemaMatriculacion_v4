@@ -8,24 +8,20 @@ public enum Modalidad {
     private Modalidad(String cadenaAMostrar) {
         this.cadenaAMostrar=cadenaAMostrar;
     }
+
     public String imprimir() {
-        int digito=0;
-        if (cadenaAMostrar==PRESENCIAL.cadenaAMostrar) {
-            digito=0;
-        }
-        else if (cadenaAMostrar==SEMIPRESENCIAL.cadenaAMostrar) {
-            digito=1;
-        }
-        else {
-            digito=2;
+        int digito = 0;
+        if (cadenaAMostrar == PRESENCIAL.cadenaAMostrar) {
+            digito = 0;
+        } else if (cadenaAMostrar == SEMIPRESENCIAL.cadenaAMostrar) {
+            digito = 1;
+        } else {
+            digito = 2;
         }
         return digito + ".-" + cadenaAMostrar;
     }
 
-    @Override
     public String toString() {
-        return "Modalidad{" +
-                "cadenaAMostrar='" + cadenaAMostrar + '\'' +
-                '}';
+        return cadenaAMostrar;
     }
 }

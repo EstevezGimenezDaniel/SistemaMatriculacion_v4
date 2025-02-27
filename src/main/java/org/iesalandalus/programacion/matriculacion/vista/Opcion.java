@@ -36,7 +36,7 @@ public enum Opcion {
             vista.mostrarAlumnos();
         }
     },
-    INSERTAR_CICLO_FORMATIVO("Insertar Ciclo Formativo") {
+    INSERTAR_CICLO_FORMATIVO("Insertar ciclo formativo") {
         @Override
         public void ejecutar() {
             System.out.println("Insertar ciclo formativo");
@@ -61,7 +61,7 @@ public enum Opcion {
         @Override
         public void ejecutar() {
             System.out.println("Mostrar ciclos formativos");
-            vista.mostrarCiclosFormativos();
+            vista.mostrarCicloFormativos();
         }
     },
     INSERTAR_ASIGNATURA("Insertar Asignatura") {
@@ -82,7 +82,7 @@ public enum Opcion {
         @Override
         public void ejecutar() {
             System.out.println("Borrar asignatura");
-            vista.buscarAsignatura();
+            vista.borrarAsignatura();
         }
     },
     MOSTRAR_ASIGNATURAS("Mostrar Asignaturas") {
@@ -92,52 +92,52 @@ public enum Opcion {
             vista.mostrarAsignaturas();
         }
     },
-    INSERTAR_MATRICULA("Insertar Matr?cula") {
+    INSERTAR_MATRICULA("Insertar Matricula") {
         @Override
         public void ejecutar() {
             System.out.println("Insertar matricula");
             vista.insertarMatricula();
         }
     },
-    BUSCAR_MATRICULA("Buscar Matr?cula") {
+    BUSCAR_MATRICULA("Buscar Matricula") {
         @Override
         public void ejecutar() {
             System.out.println("Buscar matricula");
             vista.buscarMatricula();
         }
     },
-    ANULAR_MATRICULA("Anular Matr?cula") {
+    ANULAR_MATRICULA("Anular Matricula") {
         @Override
         public void ejecutar() {
             System.out.println("Borrar matricula");
             vista.anularMatricula();
         }
     },
-    MOSTRAR_MATRICULAS("Mostrar Matr?culas") {
+    MOSTRAR_MATRICULAS("Mostrar Matriculas") {
         @Override
         public void ejecutar() {
             System.out.println("Mostrar matriculas");
             vista.mostrarMatriculas();
         }
     },
-    MOSTRAR_MATRICULAS_ALUMNO("Mostrar Matr?culas Alumno") {
+    MOSTRAR_MATRICULAS_ALUMNO("Mostrar Matriculas del Alumno") {
         @Override
         public void ejecutar() {
             System.out.println("Mostrar matriculas alumno");
-            vista.mostrarMatriculas();
+            vista.mostrarMatriculasPorAlumno();
         }
     },
-    MOSTRAR_MATRICULAS_CICLO_FORMATIVO("Mostrar Matr?culas Ciclo Formativo") {
+    MOSTRAR_MATRICULAS_CICLO_FORMATIVO("Mostrar Matriculas del Ciclo Formativo") {
         @Override
         public void ejecutar() {
-            System.out.println("Mostrar matriculas ciclo formativo");
+            System.out.println("Mostrar matriculas del ciclo formativo");
             vista.mostrarMatriculasPorCicloFormativo();
         }
     },
-    MOSTRAR_MATRICULAS_CURSO_ACADEMICO("Mostrar Matr?culas Curso Acad?mico") {
+    MOSTRAR_MATRICULAS_CURSO_ACADEMICO("Mostrar Matriculas del Curso Académico") {
         @Override
         public void ejecutar() {
-            System.out.println("Mostrar matriculas curso academico");
+            System.out.println("Mostrar matriculas del Curso Académico");
             vista.mostrarMatriculasPorCursoAcademico();
         }
     };
@@ -147,18 +147,17 @@ public enum Opcion {
     private static Vista vista;
 
     private Opcion(String cadenaAMostrar) {
-
         this.cadenaAMostrar = cadenaAMostrar;
     }
 
     public abstract void ejecutar();
 
     public static void setVista(Vista vista) {
-        Opcion.vista =vista;
+        Opcion.vista = vista;
     }
 
     @Override
     public String toString() {
-        return cadenaAMostrar;
+        return ordinal() + ".-" + cadenaAMostrar;
     }
 }

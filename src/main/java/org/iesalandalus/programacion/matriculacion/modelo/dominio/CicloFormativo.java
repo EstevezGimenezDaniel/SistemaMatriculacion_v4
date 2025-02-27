@@ -113,12 +113,11 @@ public class CicloFormativo {
     }
 
     public String imprimir() {
-        return String.format("C?digo ciclo formativo=" + codigo + ", nombre ciclo formativo=" + nombre);
+        return "Código ciclo formativo=" + codigo + ", nombre ciclo formativo=" + nombre;
     }
-
     @Override
     public String toString() {
-        return "C?digo ciclo formativo=" + codigo + ", familia profesional=" + familiaProfesional + ", grado=" + grado
+        return "Código ciclo formativo=" + codigo + ", familia profesional=" + familiaProfesional + ", grado=" + grado
                 + ", nombre ciclo formativo=" + nombre + ", horas=" + horas;
 
     }

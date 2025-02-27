@@ -25,22 +25,21 @@ public class Modelo {
         this.ciclosFormativos = new CiclosFormativos();
         this.matriculas = new Matriculas();
 
-//        try {
-//			Alumno a1 = new Alumno("Pepe", "12345678Z", "a@a.com", "666666666", LocalDate.of(2000, 1, 1));
-//			insertar(a1);
-//			CicloFormativo cf1 = new CicloFormativo(1234, "DAW", new GradoE("GE", 1, 1), "Desarrollo Aplicaciones Web", 20);
-//			insertar(cf1);
-//			Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
-//			insertar(as1);
-//			Matricula m1 = new Matricula(9876, "24-25", LocalDate.now(), a1, this.asignaturas.get());
-//			insertar(m1);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+        /* try {
+			Alumno a1 = new Alumno("Pepe", "12345678Z", "a@a.com", "666666666", LocalDate.of(2000, 1, 1));
+			insertar(a1);
+			CicloFormativo cf1 = new CicloFormativo(1234, "DAW", new GradoE("GE", 1, 1), "Desarrollo Aplicaciones Web", 20);
+			insertar(cf1);
+			Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
+			insertar(as1);
+			Matricula m1 = new Matricula(9876, "24-25", LocalDate.now(), a1, this.asignaturas.get());
+			insertar(m1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} */
     }
-
     public void terminar() {
-        System.out.println("Aplicacion terminada.");
+        System.out.println("Aplicación terminada.");
     }
 
     public void insertar(Alumno alumno) throws OperationNotSupportedException {

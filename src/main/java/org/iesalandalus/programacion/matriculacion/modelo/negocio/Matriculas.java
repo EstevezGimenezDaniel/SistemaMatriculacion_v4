@@ -21,9 +21,9 @@ public class Matriculas {
     }
 
     private ArrayList<Matricula> copiaProfundaMatriculas() throws OperationNotSupportedException {
-        ArrayList<Matricula>copiaMatriculas = new ArrayList<>();
-        for (int i = 0; i < coleccionMatriculas.size(); i++) {
-            copiaMatriculas.add(new Matricula(coleccionMatriculas.get(i)));
+        ArrayList<Matricula> copiaMatriculas = new ArrayList<>();
+        for (Matricula m : coleccionMatriculas) {
+            copiaMatriculas.add(new Matricula(m));
         }
         return copiaMatriculas;
     }
@@ -33,7 +33,9 @@ public class Matriculas {
     }
 
     public void insertar(Matricula matricula) throws OperationNotSupportedException {
-        Objects.requireNonNull(matricula, "ERROR: No se puede insertar una matrícula nula.");
+        if (matricula==null) {
+            throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
+        }
 
         int indice = this.coleccionMatriculas.indexOf(matricula);
 
@@ -45,7 +47,9 @@ public class Matriculas {
     }
 
     public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
-        Objects.requireNonNull(matricula, "ERROR: No se puede buscar una Matricula nula.");
+        if (matricula==null) {
+            throw new NullPointerException("ERROR: No se puede buscar una Matricula nula.");
+        }
 
         int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
@@ -56,8 +60,9 @@ public class Matriculas {
     }
 
     public void borrar(Matricula matricula) throws OperationNotSupportedException {
-        Objects.requireNonNull(matricula, "ERROR: No se puede borrar una matrícula nula.");
-
+        if (matricula==null) {
+            throw new NullPointerException("ERROR: No se puede borrar una Matricula nula.");
+        }
         int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice != -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
@@ -65,40 +70,38 @@ public class Matriculas {
         coleccionMatriculas.remove(indice);
     }
 
-    public ArrayList<Matricula> get(Alumno alumno) {
+    public ArrayList<Matricula> get(Alumno alumno) throws OperationNotSupportedException {
         ArrayList<Matricula> aux = new ArrayList<>();
-        for (Matricula m : coleccionMatriculas) {
-            if (m.getAlumno().equals(alumno)) {
-                aux.add(m);
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null && matricula.getAlumno().equals(alumno)) {
+                aux.add(new Matricula(matricula));
             }
         }
         return aux;
     }
 
-    public ArrayList<Matricula> get(String cursoAcademico) {
+    public ArrayList<Matricula> get(String cursoAcademico) throws OperationNotSupportedException {
         ArrayList<Matricula> aux = new ArrayList<>();
-        for (Matricula m : coleccionMatriculas) {
-            if (m.getCursoAcademico().equals(cursoAcademico)) {
-                aux.add(m);
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null && matricula.getCursoAcademico().equals(cursoAcademico)) {
+                aux.add(new Matricula(matricula));
             }
         }
-
         return aux;
     }
 
-    public ArrayList<Matricula> get(CicloFormativo cicloFormativo) {
+    public ArrayList<Matricula> get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         ArrayList<Matricula> aux = new ArrayList<>();
-        for (Matricula m : coleccionMatriculas) {
-            for (Asignatura a : m.getColeccionAsignaturas()) {
-                if (a.getCicloFormativo().equals(cicloFormativo)) {
-                    aux.add(m);
-                    break;
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null) {
+                for (Asignatura asignatura : matricula.getColeccionAsignaturas()) {
+                    if (asignatura != null && asignatura.getCicloFormativo().equals(cicloFormativo)) {
+                        aux.add(new Matricula(matricula));
+                        break;
+                    }
                 }
             }
         }
-
         return aux;
-
     }
-
 }

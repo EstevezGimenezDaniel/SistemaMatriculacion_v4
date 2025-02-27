@@ -25,7 +25,7 @@ public class GradoE extends Grado {
     @Override
     public void setNumAnios(int numAnios) {
         if (numAnios!=1) {
-            throw new  IllegalArgumentException("ERROR: El numero de años de un Grado E debe ser 1");
+            throw new  IllegalArgumentException("ERROR: El número de anios de un Grado E debe ser 1");
         }
         this.numAnios=numAnios;
     }

@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 import java.util.Objects;
 
 public class Asignatura {
-    private static final String ER_CODIGO="";
+    private static final String ER_CODIGO="^\\d{4}$";
     public static final int MAX_NUM_HORAS_ANUALES = 300;
     public static final int MAX_NUM_HORAS_DESDOBLES = 6;
     private String codigo;
@@ -28,17 +28,27 @@ public class Asignatura {
         if (asignatura == null) {
             throw new NullPointerException("ERROR: No es posible copiar una asignatura nula.");
         }
-        setCodigo(asignatura.getCodigo());
-        setNombre(asignatura.getNombre());
-        setHorasAnuales(asignatura.getHorasAnuales());
-        setCurso(asignatura.getCurso());
-        setHorasDesdoble(asignatura.getHorasDesdoble());
-        setEspecialidadProfesorado(asignatura.getEspecialidadProfesorado());
-        setCicloFormativo(asignatura.getCicloFormativo());
+        setCodigo(asignatura.codigo);
+        setNombre(asignatura.nombre);
+        setHorasAnuales(asignatura.horasAnuales);
+        setCurso(asignatura.curso);
+        setHorasDesdoble(asignatura.horasDesdoble);
+        setEspecialidadProfesorado(asignatura.especialidadProfesorado);
     }
 
-    public Asignatura() {
 
+    public CicloFormativo getCicloFormativo() {
+        return cicloFormativo;
+    }
+    public void setCicloFormativo(CicloFormativo cicloFormativo) {
+        if (cicloFormativo == null) {
+            throw new NullPointerException("ERROR: El ciclo formativo de una asignatura no puede ser nulo.");
+        }
+        this.cicloFormativo = cicloFormativo;
+    }
+
+    public String getCodigo() {
+        return codigo;
     }
 
     private void setCodigo(String codigo) {
@@ -53,6 +63,11 @@ public class Asignatura {
         }
         this.codigo = codigo;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
     public void setNombre(String nombre) {
         if (nombre == null) {
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
@@ -63,6 +78,10 @@ public class Asignatura {
         this.nombre = nombre;
     }
 
+    public int getHorasAnuales() {
+        return horasAnuales;
+    }
+
     public void setHorasAnuales(int horasAnuales) {
         if (horasAnuales <= 0 || horasAnuales > MAX_NUM_HORAS_ANUALES) {
             throw new IllegalArgumentException("ERROR: El n?mero de horas de una asignatura no puede ser menor o igual a 0 ni mayor a "
@@ -71,6 +90,11 @@ public class Asignatura {
         this.horasAnuales = horasAnuales;
     }
 
+    public Curso getCurso() {
+        return curso;
+    }
+
+
     public void setCurso(Curso curso) {
         if (curso == null) {
             throw new NullPointerException("ERROR: El curso de una asignatura no puede ser nulo.");
@@ -78,6 +102,9 @@ public class Asignatura {
         this.curso = curso;
     }
 
+    public int getHorasDesdoble() {
+        return horasDesdoble;
+    }
     public void setHorasDesdoble(int horasDesdoble) {
         if (horasDesdoble < 0 || horasDesdoble > MAX_NUM_HORAS_DESDOBLES) {
             throw new IllegalArgumentException("ERROR: El n?mero de horas de desdoble de una asignatura no puede ser menor a 0 ni mayor a "
@@ -86,46 +113,16 @@ public class Asignatura {
         this.horasDesdoble = horasDesdoble;
     }
 
-    public void setEspecialidadProfesorado(EspecialidadProfesorado especialidadProfesorado) {
-        if (especialidadProfesorado == null) {
-            throw new NullPointerException("ERROR: La especialidad del profesorado de una asignatura no puede ser nula.");
-        }
-        this.especialidadProfesorado = especialidadProfesorado;
-    }
-
-    public void setCicloFormativo(CicloFormativo cicloFormativo) {
-        if (cicloFormativo == null) {
-            throw new NullPointerException("ERROR: El ciclo formativo de una asignatura no puede ser nulo.");
-        }
-        this.cicloFormativo = cicloFormativo;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getHorasAnuales() {
-        return horasAnuales;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public int getHorasDesdoble() {
-        return horasDesdoble;
-    }
 
     public EspecialidadProfesorado getEspecialidadProfesorado() {
         return especialidadProfesorado;
     }
 
-    public CicloFormativo getCicloFormativo() {
-        return cicloFormativo;
+    public void setEspecialidadProfesorado(EspecialidadProfesorado especialidadProfesorado) {
+        if (especialidadProfesorado == null) {
+            throw new NullPointerException("ERROR: La especialidad del profesorado de una asignatura no puede ser nula.");
+        }
+        this.especialidadProfesorado = especialidadProfesorado;
     }
 
     @Override
@@ -143,14 +140,14 @@ public class Asignatura {
 
 
     public String imprimir() {
-        return "C?digo asignatura=" + codigo + ", nombre asignatura=" + nombre
-                + ", ciclo formativo=C?digo ciclo formativo=" + cicloFormativo.getCodigo() + ", nombre ciclo formativo="
+        return "Código asignatura=" + codigo + ", nombre asignatura=" + nombre
+                + ", ciclo formativo=Código ciclo formativo=" + cicloFormativo.getCodigo() + ", nombre ciclo formativo="
                 + cicloFormativo.getNombre();
     }
     @Override
     public String toString() {
-        return "C?digo=" + codigo + ", nombre=" + nombre + ", horas anuales=" + horasAnuales + ", curso=" + curso
-                + ", horas desdoble=" + horasDesdoble + ", ciclo formativo=C?digo ciclo formativo="
+        return "Código=" + codigo + ", nombre=" + nombre + ", horas anuales=" + horasAnuales + ", curso=" + curso
+                + ", horas desdoble=" + horasDesdoble + ", ciclo formativo=Código ciclo formativo="
                 + cicloFormativo.getCodigo() + ", nombre ciclo formativo=" + cicloFormativo.getNombre()
                 + ", especialidad profesorado=" + especialidadProfesorado;
     }
