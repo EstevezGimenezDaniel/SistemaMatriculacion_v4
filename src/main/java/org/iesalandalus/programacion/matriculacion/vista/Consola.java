@@ -355,9 +355,9 @@ public class Consola {
                 System.out.println("La asignatura ya está seleccionada.");
             } else {
                 asignaturasMatricula.add(asignatura);
-                System.out.println("Asignatura añadida correctamente.");
+                System.out.println("Asignatura agregada correctamente.");
             }
-            System.out.print("¿Desea añadir otra asignatura? (0 = No, 1 = Sí): ");
+            System.out.print("¿Desea agregar otra asignatura? (0 = No, 1 = Sí): ");
             opcion = Entrada.entero();
         } while (opcion == 1 && asignaturasMatricula.size() < asignaturas.size());
         return asignaturasMatricula;
@@ -370,7 +370,7 @@ public class Consola {
         Alumno alumno = new Alumno("ficticio ficticio", "00000000B", "ficticio@gmail.com", "000000000",
                 LocalDate.of(2013, 8, 21));
 
-        System.out.println("Introduzca el id de la Matrícula.");
+        System.out.println("Introduzca el Id de la Matrícula.");
         idMatricula = Entrada.entero();
 
         Matricula matricula = new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignaturas().get());

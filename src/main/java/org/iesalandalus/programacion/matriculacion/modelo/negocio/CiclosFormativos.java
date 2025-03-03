@@ -46,7 +46,7 @@ public class CiclosFormativos {
 
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
         if (cicloFormativo==null) {
-            throw new NullPointerException("ERROR: No se puede buscar un Ciclo Formativo nulo.");
+            throw new NullPointerException("ERROR: No se puede buscar un ciclo formativo nulo.");
         }
         int indice = this.coleccionCiclosFormativos.indexOf(cicloFormativo);
         if (indice == -1) {

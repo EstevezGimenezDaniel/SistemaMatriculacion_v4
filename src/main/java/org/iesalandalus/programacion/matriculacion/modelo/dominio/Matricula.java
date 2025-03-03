@@ -58,7 +58,7 @@ public class Matricula {
         if (cursoAcademico.isBlank()) {
             throw new IllegalArgumentException("ERROR: El curso académico de una matrícula no puede estar vacío.");
         }
-        if ( cursoAcademico.isEmpty()) {
+        if (cursoAcademico.isEmpty()) {
             throw new IllegalArgumentException("ERROR: El curso académico de una matrícula no puede estar vacío.");
         }
         if (!cursoAcademico.matches(ER_CURSO_ACADEMICO)) {

@@ -45,7 +45,7 @@ public class Vista {
             controlador.insertar(alumno);
             System.out.println("Alumno insertado correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar un Alumno nulo.");
+            System.out.println("ERROR: No se puede insertar un alumno nulo.");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
@@ -60,7 +60,7 @@ public class Vista {
                 System.out.println("No existe ningún alumno con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede buscar un Alumno nulo.");
+            System.out.println("ERROR: No se puede buscar un alumno nulo.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
@@ -71,7 +71,7 @@ public class Vista {
             controlador.borrar(Consola.getAlumnoPorDni());
             System.out.println("Alumno borrado correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede borrar un Alumno nulo.");
+            System.out.println("ERROR: No se puede borrar un alumno nulo.");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
@@ -104,7 +104,7 @@ public class Vista {
             controlador.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar una Asignatura nula.");
+            System.out.println("ERROR: No se puede insertar una asignatura nula.");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
@@ -154,9 +154,9 @@ public class Vista {
         try {
             CicloFormativo ciclosFormativo = Consola.leerCicloFormativo();
             controlador.insertar(ciclosFormativo);
-            System.out.println("Ciclo formativo insertada correctamente.");
+            System.out.println("Ciclo formativo insertado correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar Ciclo Formativo nulo.");
+            System.out.println("ERROR: No se puede insertar un ciclo formativo nulo.");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
@@ -220,7 +220,7 @@ public class Vista {
             controlador.insertar(matricula);
             System.out.println("Matricula insertada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar una Matricula nula.");
+            System.out.println("ERROR: No se puede insertar una matricula nula.");
         } catch (OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
@@ -268,7 +268,7 @@ public class Vista {
         try {
             ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas();
             if (arrayMatriculas.size() == 0) {
-                System.out.println("No existen Matriculas.");
+                System.out.println("No existen matriculas.");
             } else {
                 arrayMatriculas.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()

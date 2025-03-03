@@ -137,7 +137,7 @@ public enum Opcion {
     MOSTRAR_MATRICULAS_CURSO_ACADEMICO("Mostrar Matriculas del Curso Académico") {
         @Override
         public void ejecutar() {
-            System.out.println("Mostrar matriculas del Curso Académico");
+            System.out.println("Mostrar matriculas del curso académico");
             vista.mostrarMatriculasPorCursoAcademico();
         }
     };

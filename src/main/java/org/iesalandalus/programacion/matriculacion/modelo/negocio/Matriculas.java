@@ -48,7 +48,7 @@ public class Matriculas {
 
     public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula==null) {
-            throw new NullPointerException("ERROR: No se puede buscar una Matricula nula.");
+            throw new NullPointerException("ERROR: No se puede buscar una matricula nula.");
         }
 
         int indice = this.coleccionMatriculas.indexOf(matricula);
@@ -61,7 +61,7 @@ public class Matriculas {
 
     public void borrar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula==null) {
-            throw new NullPointerException("ERROR: No se puede borrar una Matricula nula.");
+            throw new NullPointerException("ERROR: No se puede borrar una matricula nula.");
         }
         int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice != -1) {

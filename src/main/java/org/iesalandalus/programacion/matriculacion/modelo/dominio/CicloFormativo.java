@@ -33,7 +33,7 @@ public class CicloFormativo {
     }
     private void setCodigo(int codigo) {
         if (codigo < 1000 || codigo > 9999) {
-            throw new IllegalArgumentException("El codigo debe estar entre los valores");
+            throw new IllegalArgumentException("El código debe estar entre los valores");
         }
         this.codigo = codigo;
     }
@@ -46,10 +46,10 @@ public class CicloFormativo {
             throw new NullPointerException("ERROR: La familia profesional de un ciclo formativo no puede ser nula.");
         }
         if (familiaProfesional.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: La familia profesional no puede estar vac?a.");
+            throw new IllegalArgumentException("ERROR: La familia profesional no puede estar vacía.");
         }
         if (familiaProfesional.isBlank()) {
-            throw new IllegalArgumentException("ERROR: La familia profesional no puede estar vac?a.");
+            throw new IllegalArgumentException("ERROR: La familia profesional no puede estar vacía.");
         }
         this.familiaProfesional = familiaProfesional;
     }
@@ -74,10 +74,10 @@ public class CicloFormativo {
             throw new NullPointerException("ERROR: El nombre de un ciclo formativo no puede ser nulo.");
         }
         if (nombre.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El nombre de un ciclo formativo no puede estar vac?o.");
+            throw new IllegalArgumentException("ERROR: El nombre de un ciclo formativo no puede estar vacío.");
         }
         if (nombre.isBlank()) {
-            throw new IllegalArgumentException("ERROR: El nombre de un ciclo formativo no puede estar vac?o.");
+            throw new IllegalArgumentException("ERROR: El nombre de un ciclo formativo no puede estar vacío.");
         }
         this.nombre = nombre;
     }
@@ -88,13 +88,13 @@ public class CicloFormativo {
 
     public void setHoras(int horas) {
         if(horas==0) {
-            throw new IllegalArgumentException("ERROR: El n?mero de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
+            throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
         }
         if (horas < 0) {
-            throw new IllegalArgumentException("ERROR: El n?mero de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
+            throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
         }
         if (horas > MAXIMO_NUMERO_HORAS) {
-            throw new IllegalArgumentException("ERROR: El n?mero de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
+            throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
         }
         this.horas = horas;
     }

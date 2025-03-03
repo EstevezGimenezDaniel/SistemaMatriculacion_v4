@@ -45,11 +45,20 @@ public class Alumno {
     }
 
     private void setNia() {
+
         setNia(this.nombre.substring(0, 4).toLowerCase() + dni.substring(5, 8));
     }
 
     private void setNia(String nia) {
-        Objects.requireNonNull(nia, "ERROR: El nia no puede ser nulo");
+        if (nia==null) {
+            throw new NullPointerException("ERROR: El nia no puede ser nulo.");
+        }
+        if (nia.isEmpty()) {
+            throw new IllegalArgumentException("El nia no puede estar vacío");
+        }
+        if (nia.isBlank()) {
+            throw new IllegalArgumentException("El nia no puede estar en blanco");
+        }
         if (!nia.matches(ER_NIA)) {
             throw new IllegalArgumentException("Nia incorrecto.");
         }
@@ -60,9 +69,14 @@ public class Alumno {
     }
 
     public void setNombre(String nombre) {
-        Objects.requireNonNull(nombre, "ERROR: El nombre de un alumno no puede ser nulo.");
+        if (nombre==null) {
+            throw new NullPointerException("ERROR: El nombre de un alumno no puede ser nulo.");
+        }
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vac?o.");
+        }
         if (nombre.isBlank()) {
-            throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vacío.");
+            throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vac?o.");
         }
         this.nombre = formateaNombre(nombre);
         setNia();
@@ -81,9 +95,17 @@ public class Alumno {
     }
 
     public void setTelefono(String telefono) {
-        Objects.requireNonNull(telefono, "ERROR: El teléfono de un alumno no puede ser nulo.");
+        if (telefono==null) {
+            throw new NullPointerException("ERROR: El tel?fono de un alumno no puede ser nulo.");
+        }
+        if (telefono.isEmpty()) {
+            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
+        }
+        if (telefono.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
+        }
         if (!telefono.matches(ER_TELEFONO)) {
-            throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
+            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
         }
         this.telefono = telefono;
     }
@@ -93,9 +115,17 @@ public class Alumno {
     }
 
     public void setCorreo(String correo) {
-        Objects.requireNonNull(correo, "ERROR: El correo de un alumno no puede ser nulo.");
-        if (!correo.matches(ER_CORREO)) {
-            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato válido.");
+        if (correo==null) {
+            throw new NullPointerException("ERROR: El correo de un alumno no puede ser nulo.");
+        }
+        if (correo.isEmpty()) {
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
+        }
+        if (correo.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
+        }
+        if(!correo.matches(ER_CORREO)){
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
         }
         this.correo = correo;
     }
@@ -105,7 +135,22 @@ public class Alumno {
     }
 
     private void setDni(String dni) {
-        Objects.requireNonNull(dni, "ERROR: El dni de un alumno no puede ser nulo.");
+        if (dni == null) {
+            throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
+        }
+
+        if (dni.isEmpty()) {
+            throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
+        }
+        if (dni.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
+        }
+        if (dni.length() != 9) {
+            throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
+        }
+        if (!dni.matches(ER_DNI)){
+            throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
+        }
         if (!comprobarLetraDni(dni.toUpperCase())) {
             throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
         }
@@ -136,7 +181,9 @@ public class Alumno {
     }
 
     private void setFechaNacimiento(LocalDate fechaNacimiento) {
-        Objects.requireNonNull(fechaNacimiento, "ERROR: La fecha de nacimiento de un alumno no puede ser nula.");
+        if (fechaNacimiento==null) {
+            throw new NullPointerException("ERROR: La fecha de nacimiento de un alumno no puede ser nula.");
+        }
         if ((LocalDate.now().getYear() - fechaNacimiento.getYear()) < MIN_EDAD_ALUMNADO) {
             throw new IllegalArgumentException("ERROR: La edad del alumno debe ser mayor o igual a 16 años.");
         }
