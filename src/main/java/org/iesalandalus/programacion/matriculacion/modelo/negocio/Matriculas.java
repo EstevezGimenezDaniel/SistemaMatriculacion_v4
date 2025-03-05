@@ -7,7 +7,6 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Matriculas {
     private ArrayList<Matricula> coleccionMatriculas;
@@ -55,7 +54,7 @@ public class Matriculas {
         if (indice == -1) {
             return null;
         } else {
-            return new Matricula(this.coleccionMatriculas.get(indice));
+            return this.coleccionMatriculas.get(indice);
         }
     }
 

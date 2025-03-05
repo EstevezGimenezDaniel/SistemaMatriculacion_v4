@@ -51,7 +51,7 @@ public class Alumnos {
         if (indice == -1) {
             return null;
         } else {
-            return new Alumno(this.coleccionAlumnos.get(indice));
+            return this.coleccionAlumnos.get(indice);
         }
     }
 

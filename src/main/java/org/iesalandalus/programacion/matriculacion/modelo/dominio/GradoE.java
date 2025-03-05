@@ -16,7 +16,7 @@ public class GradoE extends Grado {
 
     public void setNumEdiciones(int numEdiciones) {
         if (numEdiciones<1) {
-            throw new IllegalArgumentException("ERROR: El numero de ediciones de un Grado E no puede ser menor a 1");
+            throw new IllegalArgumentException("ERROR: El número de ediciones de un Grado E no puede ser menor a 1");
         }
         this.numEdiciones=numEdiciones;
 
@@ -25,7 +25,7 @@ public class GradoE extends Grado {
     @Override
     public void setNumAnios(int numAnios) {
         if (numAnios!=1) {
-            throw new  IllegalArgumentException("ERROR: El número de anios de un Grado E debe ser 1");
+            throw new  IllegalArgumentException("ERROR: El número de años de un Grado E debe ser 1");
         }
         this.numAnios=numAnios;
     }

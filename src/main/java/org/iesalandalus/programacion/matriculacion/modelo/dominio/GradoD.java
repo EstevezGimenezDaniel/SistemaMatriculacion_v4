@@ -22,7 +22,7 @@ public class GradoD extends Grado{
     @Override
     public void setNumAnios(int numAnios) {
         if (numAnios<2 || numAnios>3) {
-            throw new IllegalArgumentException("ERROR: El numero de años de un Grado D debe ser 2 o 3 años");
+            throw new IllegalArgumentException("ERROR: El número de años de un Grado D debe ser 2 o 3 años");
         }
         this.numAnios=numAnios;
     }

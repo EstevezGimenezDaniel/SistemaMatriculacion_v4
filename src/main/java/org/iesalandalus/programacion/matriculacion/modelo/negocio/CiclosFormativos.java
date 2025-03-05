@@ -52,7 +52,7 @@ public class CiclosFormativos {
         if (indice == -1) {
             return null;
         } else {
-            return new CicloFormativo(this.coleccionCiclosFormativos.get(indice));
+            return this.coleccionCiclosFormativos.get(indice);
         }
     }
 

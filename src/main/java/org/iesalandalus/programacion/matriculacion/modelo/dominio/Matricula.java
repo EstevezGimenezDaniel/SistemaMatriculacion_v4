@@ -101,7 +101,7 @@ public class Matricula {
         }
 
         if (fechaAnulacion.isAfter(fechaMatriculacion.plusMonths(MAXIMO_MESES_ANTERIOR_ANULACION))) {
-            throw new IllegalArgumentException("ERROR: La edad del alumno debe ser mayor o igual a 16 anios");
+            throw new IllegalArgumentException("ERROR: La edad del alumno debe ser mayor o igual a 16 años");
         }
         long mesesDeDiferencia = ChronoUnit.MONTHS.between(fechaAnulacion, LocalDate.now());
         if (mesesDeDiferencia>=MAXIMO_MESES_ANTERIOR_ANULACION) {
@@ -117,7 +117,7 @@ public class Matricula {
 
     public void setAlumno(Alumno alumno)  {
         if (alumno == null) {
-            throw new NullPointerException("ERROR: El alumno de una matr?cula no puede ser nulo.");
+            throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
         }
 
         this.alumno = alumno;

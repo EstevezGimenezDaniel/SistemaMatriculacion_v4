@@ -53,13 +53,13 @@ public class Asignatura {
 
     private void setCodigo(String codigo) {
         if (codigo == null) {
-            throw new NullPointerException("ERROR: El c?digo de una asignatura no puede ser nulo.");
+            throw new NullPointerException("ERROR: El código de una asignatura no puede ser nulo.");
         }
         if (codigo.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El c?digo de una asignatura no puede estar vac?o.");
+            throw new IllegalArgumentException("ERROR: El código de una asignatura no puede estar vacío.");
         }
         if (!codigo.matches("\\d{4}")) {
-            throw new IllegalArgumentException("ERROR: El c?digo de la asignatura no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
         }
         this.codigo = codigo;
     }
@@ -73,7 +73,7 @@ public class Asignatura {
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
         }
         if (nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vac?o.");
+            throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }
         this.nombre = nombre;
     }
@@ -84,7 +84,7 @@ public class Asignatura {
 
     public void setHorasAnuales(int horasAnuales) {
         if (horasAnuales <= 0 || horasAnuales > MAX_NUM_HORAS_ANUALES) {
-            throw new IllegalArgumentException("ERROR: El n?mero de horas de una asignatura no puede ser menor o igual a 0 ni mayor a "
+            throw new IllegalArgumentException("ERROR: El número de horas de una asignatura no puede ser menor o igual a 0 ni mayor a "
                     + MAX_NUM_HORAS_ANUALES + ".");
         }
         this.horasAnuales = horasAnuales;
@@ -107,7 +107,7 @@ public class Asignatura {
     }
     public void setHorasDesdoble(int horasDesdoble) {
         if (horasDesdoble < 0 || horasDesdoble > MAX_NUM_HORAS_DESDOBLES) {
-            throw new IllegalArgumentException("ERROR: El n?mero de horas de desdoble de una asignatura no puede ser menor a 0 ni mayor a "
+            throw new IllegalArgumentException("ERROR: El número de horas de desdoble de una asignatura no puede ser menor a 0 ni mayor a "
                     + MAX_NUM_HORAS_DESDOBLES + ".");
         }
         this.horasDesdoble = horasDesdoble;

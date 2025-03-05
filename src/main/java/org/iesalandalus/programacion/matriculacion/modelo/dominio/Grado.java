@@ -17,10 +17,10 @@ public abstract class Grado {
             throw new NullPointerException("ERROR: El nombre no puede ser nulo");
         }
         if (nombre.isBlank()) {
-            throw new IllegalArgumentException("ERROR: El nombre del grado no puede estar vacio");
+            throw new IllegalArgumentException("ERROR: El nombre del grado no puede estar vacío");
         }
         if (nombre.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El nombre del grado no puede estar vacio");
+            throw new IllegalArgumentException("ERROR: El nombre del grado no puede estar vacío");
         }
         this.nombre=nombre;
         setIniciales();

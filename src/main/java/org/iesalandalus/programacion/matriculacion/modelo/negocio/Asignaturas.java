@@ -52,7 +52,7 @@ public class Asignaturas {
         if (indice == -1) {
             return null;
         } else {
-            return new Asignatura(this.coleccionAsignaturas.get(indice));
+            return this.coleccionAsignaturas.get(indice);
         }
     }
 

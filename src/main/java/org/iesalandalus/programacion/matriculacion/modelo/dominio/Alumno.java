@@ -54,13 +54,13 @@ public class Alumno {
             throw new NullPointerException("ERROR: El nia no puede ser nulo.");
         }
         if (nia.isEmpty()) {
-            throw new IllegalArgumentException("El nia no puede estar vacío");
+            throw new IllegalArgumentException("ERROR: El nia no puede estar vacío");
         }
         if (nia.isBlank()) {
-            throw new IllegalArgumentException("El nia no puede estar en blanco");
+            throw new IllegalArgumentException("ERROR: El nia no puede estar en blanco");
         }
         if (!nia.matches(ER_NIA)) {
-            throw new IllegalArgumentException("Nia incorrecto.");
+            throw new IllegalArgumentException("ERROR: El nia no tiene un formato válido.");
         }
         this.nia = nia;
     }
@@ -96,16 +96,16 @@ public class Alumno {
 
     public void setTelefono(String telefono) {
         if (telefono==null) {
-            throw new NullPointerException("ERROR: El tel?fono de un alumno no puede ser nulo.");
+            throw new NullPointerException("ERROR: El teléfono de un alumno no puede ser nulo.");
         }
         if (telefono.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         if (telefono.isBlank()) {
-            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         if (!telefono.matches(ER_TELEFONO)) {
-            throw new IllegalArgumentException("ERROR: El tel?fono del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         this.telefono = telefono;
     }
@@ -119,13 +119,13 @@ public class Alumno {
             throw new NullPointerException("ERROR: El correo de un alumno no puede ser nulo.");
         }
         if (correo.isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato válido.");
         }
         if (correo.isBlank()) {
-            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato válido.");
         }
         if(!correo.matches(ER_CORREO)){
-            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato v?lido.");
+            throw new IllegalArgumentException("ERROR: El correo del alumno no tiene un formato válido.");
         }
         this.correo = correo;
     }
