@@ -58,7 +58,7 @@ public class Asignatura {
         if (codigo.trim().isEmpty()) {
             throw new IllegalArgumentException("ERROR: El código de una asignatura no puede estar vacío.");
         }
-        if (!codigo.matches("\\d{4}")) {
+        if (!codigo.matches(ER_CODIGO)) {
             throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
         }
         this.codigo = codigo;
@@ -72,7 +72,10 @@ public class Asignatura {
         if (nombre == null) {
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
         }
-        if (nombre.trim().isEmpty()) {
+        if (nombre.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
+        }
+        if (nombre.isEmpty()) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }
         this.nombre = nombre;
@@ -98,6 +101,9 @@ public class Asignatura {
     public void setCurso(Curso curso) {
         if (curso == null) {
             throw new NullPointerException("ERROR: El curso de una asignatura no puede ser nulo.");
+        }
+        if (curso != Curso.PRIMERO && curso != Curso.SEGUNDO) {
+            throw new IllegalArgumentException("ERROR: El curso de una asignatura debe ser Primero o Segundo.");
         }
         this.curso = curso;
     }
@@ -126,11 +132,11 @@ public class Asignatura {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Asignatura other = (Asignatura) obj;
-        return Objects.equals(codigo, other.codigo);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Asignatura that = (Asignatura) o;
+        return Objects.equals(codigo, that.codigo);
     }
 
     @Override
@@ -151,6 +157,4 @@ public class Asignatura {
                 + cicloFormativo.getCodigo() + ", nombre ciclo formativo=" + cicloFormativo.getNombre()
                 + ", especialidad profesorado=" + especialidadProfesorado;
     }
-
-
 }

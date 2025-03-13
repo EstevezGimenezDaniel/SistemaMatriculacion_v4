@@ -31,7 +31,9 @@ public class Alumno {
         setFechaNacimiento(fechaNacimiento);
     }
     public Alumno(Alumno alumno) {
-        Objects.requireNonNull(alumno, "ERROR: No es posible copiar un alumno nulo.");
+        if (alumno==null) {
+            throw new NullPointerException("ERROR: No es posible copiar un alumno nulo.");
+        }
         setDni(alumno.getDni());
         setNombre(alumno.getNombre());
         setCorreo(alumno.getCorreo());

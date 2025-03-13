@@ -22,12 +22,13 @@ public class CicloFormativo {
             throw new NullPointerException("ERROR: No es posible copiar un ciclo formativo nulo.");
         }
 
-        this.codigo = cicloFormativo.codigo;
-        this.familiaProfesional = cicloFormativo.familiaProfesional;
-        this.grado = cicloFormativo.grado;
-        this.nombre = cicloFormativo.nombre;
-        this.horas = cicloFormativo.horas;
+        setCodigo(cicloFormativo.codigo);
+        setFamiliaProfesional(cicloFormativo.familiaProfesional);
+        setGrado(cicloFormativo.grado);
+        setNombre(cicloFormativo.nombre);
+        setHoras(cicloFormativo.horas);
     }
+
     public int getCodigo() {
         return codigo;
     }
@@ -87,29 +88,25 @@ public class CicloFormativo {
     }
 
     public void setHoras(int horas) {
-        if(horas==0) {
-            throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
-        }
-        if (horas < 0) {
-            throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
-        }
-        if (horas > MAXIMO_NUMERO_HORAS) {
+        if (horas <= 0 || horas > MAXIMO_NUMERO_HORAS) {
             throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a 2000.");
         }
         this.horas = horas;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        CicloFormativo that = (CicloFormativo) obj;
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        CicloFormativo that = (CicloFormativo) o;
         return codigo == that.codigo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(MAXIMO_NUMERO_HORAS, codigo, familiaProfesional, grado, nombre, horas);
+        return Objects.hashCode(codigo);
     }
 
     public String imprimir() {

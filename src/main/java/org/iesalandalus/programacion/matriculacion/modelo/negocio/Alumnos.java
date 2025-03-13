@@ -24,7 +24,6 @@ public class Alumnos {
         }
         return copiaAlumnos;
     }
-
     public int getTamano() {
         return this.coleccionAlumnos.size();
     }

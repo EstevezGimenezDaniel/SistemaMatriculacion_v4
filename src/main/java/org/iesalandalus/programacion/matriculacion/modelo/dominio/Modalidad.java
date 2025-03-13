@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
+import java.util.Objects;
+
 public enum Modalidad {
     PRESENCIAL("Presencial"),
     SEMIPRESENCIAL("Semipresencial");
@@ -11,9 +13,9 @@ public enum Modalidad {
 
     public String imprimir() {
         int digito = 0;
-        if (cadenaAMostrar == PRESENCIAL.cadenaAMostrar) {
+        if (Objects.equals(cadenaAMostrar, PRESENCIAL.cadenaAMostrar)) {
             digito = 0;
-        } else if (cadenaAMostrar == SEMIPRESENCIAL.cadenaAMostrar) {
+        } else if (Objects.equals(cadenaAMostrar, SEMIPRESENCIAL.cadenaAMostrar)) {
             digito = 1;
         } else {
             digito = 2;
@@ -22,6 +24,7 @@ public enum Modalidad {
     }
 
     public String toString() {
-        return cadenaAMostrar;
+
+        return "Modalidad seleccionada: " + cadenaAMostrar;
     }
 }

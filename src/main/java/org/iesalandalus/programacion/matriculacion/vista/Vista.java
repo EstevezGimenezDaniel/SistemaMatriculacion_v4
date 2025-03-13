@@ -57,7 +57,7 @@ public class Vista {
             if (alumnoBuscado != null) {
                 System.out.printf("Los datos del alumno solicitado son: %s", alumnoBuscado);
             } else {
-                System.out.println("No existe ningún alumno con esos datos.");
+                System.out.println("ERROR: No existe ningún alumno con esos datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar un alumno nulo.");
@@ -117,7 +117,7 @@ public class Vista {
             if (encontrada != null) {
                 System.out.printf("Los datos de la asignatura solicitada son: %s", asignaturaBuscar);
             } else {
-                System.out.println("No existe ninguna asignatura con tales datos.");
+                System.out.println("ERROR: No existe ninguna asignatura con tales datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar una asignatura nula.");
@@ -141,7 +141,7 @@ public class Vista {
     public void mostrarAsignaturas() {
         ArrayList<Asignatura> arrayAsignatura = controlador.getAsignaturas();
         if (arrayAsignatura.size() == 0) {
-            System.out.println("No existen asignaturas.");
+            System.out.println("ERROR: No existen asignaturas.");
         } else {
             arrayAsignatura.sort(Comparator.comparing(Asignatura::getNombre));
             for (Asignatura asignatura : arrayAsignatura) {
@@ -169,7 +169,7 @@ public class Vista {
             if (encontrada != null) {
                 System.out.printf("Los datos del ciclo formativo solicitado son: %s", cicloFormativoBuscar);
             } else {
-                System.out.println("No existe ningún ciclo formativo con tales datos.");
+                System.out.println("ERROR: No existe ningún ciclo formativo con tales datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
@@ -195,7 +195,7 @@ public class Vista {
     public void mostrarCicloFormativos() {
         ArrayList<CicloFormativo> arrayCicloFormativo = controlador.getCicloFormativos();
         if (arrayCicloFormativo.size() == 0) {
-            System.out.println("No existen ciclos formativos.");
+            System.out.println("ERROR: No existen ciclos formativos.");
         } else {
             arrayCicloFormativo.sort(Comparator.comparing(CicloFormativo::getNombre));
             for (CicloFormativo cicloFormativo : arrayCicloFormativo) {
@@ -210,7 +210,7 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Alumno a = controlador.buscar(alumno);
             if (a == null) {
-                System.out.println("No existe el alumno indicado.");
+                System.out.println("ERROR: No existe el alumno indicado.");
                 return;
             }
             System.out.println("Asignaturas de la matricula:");
@@ -233,7 +233,7 @@ public class Vista {
             if (encontrada != null) {
                 System.out.printf("Los datos del ciclo formativo solicitado son: %s", matriculaBuscar);
             } else {
-                System.out.println("No existe ningún ciclo formativo con tales datos.");
+                System.out.println("ERROR: No existe ningún ciclo formativo con tales datos.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
@@ -256,7 +256,7 @@ public class Vista {
                 matriculaAnular.setFechaAnulacion(fechaAnular);
                 System.out.println("Matricula anulada correctamente.");
             } else {
-                System.out.println("No se ha encontrado la matricula o no corresponde al alumno indicado.");
+                System.out.println("ERROR: No se ha encontrado la matricula o no corresponde al alumno indicado.");
             }
         } catch (NullPointerException e) {
             System.out.println("ERROR: No se puede anular una matricula nula.");
@@ -268,7 +268,7 @@ public class Vista {
         try {
             ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas();
             if (arrayMatriculas.size() == 0) {
-                System.out.println("No existen matriculas.");
+                System.out.println("ERROR: No existen matriculas.");
             } else {
                 arrayMatriculas.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
@@ -287,7 +287,7 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             ArrayList<Matricula> arrayMatricula = controlador.getMatriculas(alumno);
             if (arrayMatricula.size() == 0) {
-                System.out.println("No existen matriculas para el alumno indicado.");
+                System.out.println("ERROR: No existen matriculas para el alumno indicado.");
             } else {
                 arrayMatricula.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
@@ -310,7 +310,7 @@ public class Vista {
         try {
             matriculaCiclo = controlador.getMatriculas(cicloFormativo);
             if (matriculaCiclo.size() == 0) {
-                System.out.println("No existen matriculas para el ciclo formativo indicado.");
+                System.out.println("ERROR: No existen matriculas para el ciclo formativo indicado.");
             }
 
             System.out.println("Matrículas del ciclo formativo " + cicloFormativo.getCodigo() + ":");
@@ -334,7 +334,7 @@ public class Vista {
             ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas(cursoAcademico);
 
             if (arrayMatriculas.size() == 0) {
-                System.out.println("No existen matrículas para el curso académico indicado.");
+                System.out.println("ERROR: No existen matrículas para el curso académico indicado.");
                 return;
             }
 

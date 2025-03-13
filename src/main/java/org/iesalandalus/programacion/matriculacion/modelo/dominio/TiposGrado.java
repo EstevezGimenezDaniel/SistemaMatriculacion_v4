@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
+import java.util.Objects;
+
 public enum TiposGrado {
 
     GRADOD("Grado D"),
@@ -13,9 +15,9 @@ public enum TiposGrado {
 
     public String imprimir() {
         int digito = 0;
-        if (cadenaAMostrar == GRADOD.cadenaAMostrar) {
+        if (Objects.equals(cadenaAMostrar, GRADOD.cadenaAMostrar)) {
             digito = 0;
-        } else if (cadenaAMostrar == GRADOE.cadenaAMostrar) {
+        } else if (Objects.equals(cadenaAMostrar, GRADOE.cadenaAMostrar)) {
             digito = 1;
         } else {
             digito = 2;

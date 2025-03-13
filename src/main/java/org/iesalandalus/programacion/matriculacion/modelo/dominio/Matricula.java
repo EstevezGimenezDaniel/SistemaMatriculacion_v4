@@ -21,14 +21,15 @@ public class Matricula {
     private Alumno alumno;
     private ArrayList<Asignatura> coleccionAsignaturas;
 
-    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno,
-                     ArrayList<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
+    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, ArrayList<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
+
         setIdMatricula(idMatricula);
         setCursoAcademico(cursoAcademico);
         setFechaMatriculacion(fechaMatriculacion);
         setAlumno(alumno);
         setColeccionAsignaturas(coleccionAsignaturas);
     }
+
     public Matricula(Matricula matricula) throws OperationNotSupportedException {
         if (matricula==null) {
             throw new NullPointerException("ERROR: No es posible copiar una matrícula nula.");
@@ -39,8 +40,9 @@ public class Matricula {
         setAlumno(matricula.getAlumno());
         setColeccionAsignaturas(matricula.getColeccionAsignaturas());
     }
+
     public int getIdMatricula() {
-        return idMatricula;
+        return this.idMatricula;
     }
     public void setIdMatricula(int idMatricula) {
         if (idMatricula <= 0) {
@@ -49,7 +51,7 @@ public class Matricula {
         this.idMatricula = idMatricula;
     }
     public String getCursoAcademico() {
-        return cursoAcademico;
+        return this.cursoAcademico;
     }
     public void setCursoAcademico(String cursoAcademico) {
         if (cursoAcademico==null) {
@@ -93,19 +95,15 @@ public class Matricula {
 
     public void setFechaAnulacion(LocalDate fechaAnulacion) {
 
+        if (fechaAnulacion==null) {
+            throw new NullPointerException("ERROR: La fecha de anulación de una matrícula no puede ser nula");
+        }
+
         if (fechaAnulacion.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("ERROR: La fecha de anulación de una matrícula no puede ser posterior a hoy.");
         }
-        if (fechaAnulacion.isBefore(fechaMatriculacion)) {
+        if (fechaAnulacion.isBefore(getFechaMatriculacion())) {
             throw new IllegalArgumentException("ERROR: La fecha de anulación no puede ser anterior a la fecha de matriculación.");
-        }
-
-        if (fechaAnulacion.isAfter(fechaMatriculacion.plusMonths(MAXIMO_MESES_ANTERIOR_ANULACION))) {
-            throw new IllegalArgumentException("ERROR: La edad del alumno debe ser mayor o igual a 16 años");
-        }
-        long mesesDeDiferencia = ChronoUnit.MONTHS.between(fechaAnulacion, LocalDate.now());
-        if (mesesDeDiferencia>=MAXIMO_MESES_ANTERIOR_ANULACION) {
-            throw new IllegalArgumentException("ERROR: La fecha de anulación debe ser anterior a 6 meses");
         }
 
         this.fechaAnulacion = fechaAnulacion;
@@ -170,16 +168,16 @@ public class Matricula {
     }
 
     private String asignaturasMatricula() {
-        String cad = "";
+        String s = "";
         for (int i = 0; i < coleccionAsignaturas.size(); i++) {
             if (coleccionAsignaturas.get(i) != null) {
-                cad += coleccionAsignaturas.get(i).getNombre();
+                s += coleccionAsignaturas.get(i).getNombre();
                 if (i < coleccionAsignaturas.size() - 1) {
-                    cad += ", ";
+                    s += ", ";
                 }
             }
         }
-        return cad;
+        return s;
     }
 
     public String imprimir() {

@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
+import java.util.Objects;
+
 public enum Curso {
     PRIMERO("Primero"),
     SEGUNDO("Segundo");
@@ -12,7 +14,7 @@ public enum Curso {
 
     public String imprimir() {
         int digito = 0;
-        if (cadenaAMostrar == PRIMERO.cadenaAMostrar) {
+        if (Objects.equals(cadenaAMostrar, PRIMERO.cadenaAMostrar)) {
             digito = 0;
         } else {
             digito = 1;

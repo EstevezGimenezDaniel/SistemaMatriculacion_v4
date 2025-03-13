@@ -251,8 +251,7 @@ public class Consola {
 
         especialidadProfesorado = leerEspecialidadProfesorado();
 
-        return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado,
-                cicloFormativo);
+        return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
     }
     public static Asignatura getAsignaturaPorCodigo() {
         String codigo;
@@ -268,8 +267,8 @@ public class Consola {
             System.out.println("\nIntroduce el código de la asignatura: ");
             codigo = Entrada.cadena();
         } while (codigo == null || codigo.isBlank());
-        asignatura = new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado,
-                cicloFormativo);
+
+        asignatura = new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
 
         return new Asignatura(asignatura);
     }
@@ -360,6 +359,7 @@ public class Consola {
             System.out.print("¿Desea agregar otra asignatura? (0 = No, 1 = Sí): ");
             opcion = Entrada.entero();
         } while (opcion == 1 && asignaturasMatricula.size() < asignaturas.size());
+
         return asignaturasMatricula;
     }
 

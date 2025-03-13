@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
+import java.util.Objects;
+
 public enum EspecialidadProfesorado {
     INFORMATICA("Informática"),
     SISTEMAS("Sistemas"),
@@ -11,9 +13,9 @@ public enum EspecialidadProfesorado {
 
     public String imprimir() {
         int digito = 0;
-        if (cadenaAMostrar == INFORMATICA.cadenaAMostrar) {
+        if (Objects.equals(cadenaAMostrar, INFORMATICA.cadenaAMostrar)) {
             digito = 0;
-        } else if (cadenaAMostrar == SISTEMAS.cadenaAMostrar) {
+        } else if (Objects.equals(cadenaAMostrar, SISTEMAS.cadenaAMostrar)) {
             digito = 1;
         } else {
             digito = 2;
