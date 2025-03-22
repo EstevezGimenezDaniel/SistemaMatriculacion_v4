@@ -8,16 +8,19 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Vista {
+
     private Controlador controlador;
 
     public Vista() {
         Opcion.setVista(this);
     }
+
 
     public void setControlador(Controlador controlador) {
         if (controlador == null) {
@@ -45,8 +48,10 @@ public class Vista {
             controlador.insertar(alumno);
             System.out.println("Alumno insertado correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar un alumno nulo.");
+            System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -55,13 +60,17 @@ public class Vista {
         try {
             Alumno alumnoBuscado = controlador.buscar(Consola.getAlumnoPorDni());
             if (alumnoBuscado != null) {
-                System.out.printf("Los datos del alumno solicitado son: %s", alumnoBuscado);
+                System.out.printf("Los datos del alumno solicitado son: %s\n", alumnoBuscado);
             } else {
                 System.out.println("ERROR: No existe ningún alumno con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede buscar un alumno nulo.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -71,25 +80,35 @@ public class Vista {
             controlador.borrar(Consola.getAlumnoPorDni());
             System.out.println("Alumno borrado correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede borrar un alumno nulo.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
     }
 
     public void mostrarAlumnos() {
-        ArrayList<Alumno> arrayAlumnos = controlador.getAlumnos();
-        if (arrayAlumnos.size() == 0) {
-            System.out.println("No existen alumnos.");
-        } else {
-            arrayAlumnos.sort(Comparator.comparing(Alumno::getNombre));
-            for (Alumno alumno : arrayAlumnos) {
-                System.out.println(alumno);
+        ArrayList<Alumno> arrayAlumnos;
+        try {
+            arrayAlumnos = controlador.getAlumnos();
+            if (arrayAlumnos.size() == 0) {
+                System.out.println("ERROR: No existen alumnos.");
+            } else {
+                arrayAlumnos.sort(Comparator.comparing(Alumno::getNombre));
+                for (Alumno alumno : arrayAlumnos) {
+                    System.out.println(alumno);
+                }
             }
+        } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+
     }
 
     public void insertarAsignatura() {
@@ -97,15 +116,17 @@ public class Vista {
             CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
             CicloFormativo ciclo = controlador.buscar(cicloFormativo);
             if (ciclo == null) {
-                System.out.println("No existe el ciclo formativo indicado.");
+                System.out.println("ERROR: No existe el ciclo formativo indicado.");
                 return;
             }
             Asignatura asignatura = Consola.leerAsignatura(ciclo);
             controlador.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar una asignatura nula.");
+            System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -115,49 +136,60 @@ public class Vista {
             Asignatura asignaturaBuscar = controlador.buscar(Consola.getAsignaturaPorCodigo());
             Asignatura encontrada = controlador.buscar(asignaturaBuscar);
             if (encontrada != null) {
-                System.out.printf("Los datos de la asignatura solicitada son: %s", asignaturaBuscar);
+                System.out.printf("Los datos de la asignatura solicitada son: %s\n", asignaturaBuscar);
             } else {
-                System.out.println("ERROR: No existe ninguna asignatura con tales datos.");
+                System.out.println("ERROR: No existe ninguna asignatura con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede buscar una asignatura nula.");
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
-
     public void borrarAsignatura() {
         try {
             Asignatura asignaturaBorrar = Consola.getAsignaturaPorCodigo();
             controlador.borrar(asignaturaBorrar);
             System.out.println("Asignatura borrada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede borrar una asignatura nula.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void mostrarAsignaturas() {
-        ArrayList<Asignatura> arrayAsignatura = controlador.getAsignaturas();
-        if (arrayAsignatura.size() == 0) {
-            System.out.println("ERROR: No existen asignaturas.");
-        } else {
-            arrayAsignatura.sort(Comparator.comparing(Asignatura::getNombre));
-            for (Asignatura asignatura : arrayAsignatura) {
-                System.out.println(asignatura);
+        ArrayList<Asignatura> arrayAsignatura;
+        try {
+            arrayAsignatura = controlador.getAsignaturas();
+            if (arrayAsignatura.size() == 0) {
+                System.out.println("ERROR: No existen asignaturas.");
+            } else {
+                arrayAsignatura.sort(Comparator.comparing(Asignatura::getNombre));
+                for (Asignatura asignatura : arrayAsignatura) {
+                    System.out.println(asignatura);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+
     }
 
     public void insertarCicloFormativo() {
         try {
             CicloFormativo ciclosFormativo = Consola.leerCicloFormativo();
             controlador.insertar(ciclosFormativo);
-            System.out.println("Ciclo formativo insertado correctamente.");
+            System.out.println("Ciclo formativo insertada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar un ciclo formativo nulo.");
+            System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -167,13 +199,15 @@ public class Vista {
             CicloFormativo cicloFormativoBuscar = controlador.buscar(Consola.getCicloFormativoPorCodigo());
             CicloFormativo encontrada = controlador.buscar(cicloFormativoBuscar);
             if (encontrada != null) {
-                System.out.printf("Los datos del ciclo formativo solicitado son: %s", cicloFormativoBuscar);
+                System.out.printf("Los datos del ciclo formativo solicitado son: %s\n", cicloFormativoBuscar);
             } else {
-                System.out.println("ERROR: No existe ningún ciclo formativo con tales datos.");
+                System.out.println("ERROR: No existe ningún ciclo formativo con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -182,26 +216,34 @@ public class Vista {
         try {
             CicloFormativo cicloFormativoBorrar = Consola.getCicloFormativoPorCodigo();
             controlador.borrar(cicloFormativoBorrar);
-            System.out.println("Ciclo formativo borrado correctamente.");
+            System.out.println("Ciclo formativo borrada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede borrar un ciclo formativo nulo.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void mostrarCicloFormativos() {
-        ArrayList<CicloFormativo> arrayCicloFormativo = controlador.getCicloFormativos();
-        if (arrayCicloFormativo.size() == 0) {
-            System.out.println("ERROR: No existen ciclos formativos.");
-        } else {
-            arrayCicloFormativo.sort(Comparator.comparing(CicloFormativo::getNombre));
-            for (CicloFormativo cicloFormativo : arrayCicloFormativo) {
-                System.out.println(cicloFormativo);
+        ArrayList<CicloFormativo> arrayCicloFormativo;
+        try {
+            arrayCicloFormativo = controlador.getCicloFormativos();
+            if (arrayCicloFormativo.size() == 0) {
+                System.out.println("ERROR: No existen ciclos formativos.");
+            } else {
+                arrayCicloFormativo.sort(Comparator.comparing(CicloFormativo::getNombre));
+                for (CicloFormativo cicloFormativo : arrayCicloFormativo) {
+                    System.out.println(cicloFormativo);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
+
     }
 
     public void insertarMatricula() {
@@ -220,8 +262,10 @@ public class Vista {
             controlador.insertar(matricula);
             System.out.println("Matricula insertada correctamente.");
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede insertar una matricula nula.");
+            System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -231,16 +275,18 @@ public class Vista {
             Matricula matriculaBuscar = controlador.buscar(Consola.getMatriculaPorIdentificador());
             Matricula encontrada = controlador.buscar(matriculaBuscar);
             if (encontrada != null) {
-                System.out.printf("Los datos del ciclo formativo solicitado son: %s", matriculaBuscar);
+                System.out.printf("Los datos del ciclo formativo solicitado son: %s\n", matriculaBuscar);
             } else {
-                System.out.println("ERROR: No existe ningún ciclo formativo con tales datos.");
+                System.out.println("ERROR: No existe ningún ciclo formativo con esos datos.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede buscar un ciclo formativo nulo.");
+            System.out.println(e.getMessage());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
             throw new RuntimeException(e);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -249,26 +295,30 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Matricula matriculaAnular = controlador.buscar(Consola.getMatriculaPorIdentificador());
             if (matriculaAnular != null && matriculaAnular.getAlumno().equals(alumno)) {
-                System.out.println("Indique la fecha de anulación:");
-                String fechaAnulacion = (Entrada.cadena());
+//				System.out.println("Indique la fecha de anulación:");
+//				String fechaAnulacion = (Entrada.cadena());
                 LocalDate fechaAnular;
-                fechaAnular = LocalDate.parse(fechaAnulacion);
+                fechaAnular = Consola.leerFecha("Indique la fecha de anulación (dd/MM/yyyy): ");
                 matriculaAnular.setFechaAnulacion(fechaAnular);
+                controlador.borrar(matriculaAnular);
                 System.out.println("Matricula anulada correctamente.");
             } else {
                 System.out.println("ERROR: No se ha encontrado la matricula o no corresponde al alumno indicado.");
             }
         } catch (NullPointerException e) {
-            System.out.println("ERROR: No se puede anular una matricula nula.");
+            System.out.println(e.getMessage());
         } catch (OperationNotSupportedException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
     public void mostrarMatriculas() {
         try {
             ArrayList<Matricula> arrayMatriculas = controlador.getMatriculas();
             if (arrayMatriculas.size() == 0) {
-                System.out.println("ERROR: No existen matriculas.");
+                System.out.println("ERROR: No existen Matriculas.");
             } else {
                 arrayMatriculas.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
@@ -279,53 +329,67 @@ public class Vista {
                 }
             }
         } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudieron mostrar matriculas.");
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
+
     public void mostrarMatriculasPorAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
             ArrayList<Matricula> arrayMatricula = controlador.getMatriculas(alumno);
             if (arrayMatricula.size() == 0) {
-                System.out.println("ERROR: No existen matriculas para el alumno indicado.");
+                System.out.println("ERROR: No existen matrículas para el alumno indicado.");
             } else {
                 arrayMatricula.sort(
                         Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
-                                .thenComparing(m -> m.getAlumno().getNombre()));
+                                .thenComparing(m -> m.getAlumno().getNombre())
+                );
                 for (Matricula matricula : arrayMatricula) {
                     System.out.println(matricula);
                 }
             }
         } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pueden mostrar matriculas por alumno");
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
+
     public void mostrarMatriculasPorCicloFormativo() {
         CicloFormativo cicloFormativo = Consola.getCicloFormativoPorCodigo();
-        cicloFormativo = controlador.buscar(cicloFormativo);
-        if (cicloFormativo == null) {
-            System.out.println("ERROR: El ciclo formativo de una matrícula no puede ser nulo.");
-        }
-        ArrayList<Matricula> matriculaCiclo;
         try {
-            matriculaCiclo = controlador.getMatriculas(cicloFormativo);
-            if (matriculaCiclo.size() == 0) {
-                System.out.println("ERROR: No existen matriculas para el ciclo formativo indicado.");
-            }
+            cicloFormativo = controlador.buscar(cicloFormativo);
+            if (cicloFormativo == null) {
+                System.out.println("ERROR: No existe ningún ciclo formativo con esos datos.");
+            }else {
+                ArrayList<Matricula> matriculaCiclo;
+                try {
+                    matriculaCiclo = controlador.getMatriculas(cicloFormativo);
+                    if (matriculaCiclo.size() == 0) {
+                        System.out.println("ERROR: No existen matriculas para el ciclo formativo indicado.");
+                    }
 
-            System.out.println("Matrículas del ciclo formativo " + cicloFormativo.getCodigo() + ":");
-            matriculaCiclo.sort(
-                    Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
-                            .thenComparing(m -> m.getAlumno().getNombre())
-            );
-            for (Matricula matricula : matriculaCiclo) {
-                System.out.println(matricula);
+                    System.out.println("Matrículas del ciclo formativo " + cicloFormativo.getCodigo() + ":");
+                    matriculaCiclo.sort(
+                            Comparator.comparing(Matricula::getFechaMatriculacion).reversed()
+                                    .thenComparing(m -> m.getAlumno().getNombre())
+                    );
+                    for (Matricula matricula : matriculaCiclo) {
+                        System.out.println(matricula);
+                    }
+                } catch (OperationNotSupportedException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-        } catch (OperationNotSupportedException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+
     }
+
     public void mostrarMatriculasPorCursoAcademico() {
         try {
             System.out.println("Indique el curso académico:");
@@ -347,7 +411,9 @@ public class Vista {
                 System.out.println(matricula);
             }
         } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar matriculas por curso académico.");
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
     }

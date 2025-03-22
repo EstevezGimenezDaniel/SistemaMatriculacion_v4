@@ -8,11 +8,14 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 
-public class Matriculas {
+public class Matriculas implements IMatriculas{
+
     private ArrayList<Matricula> coleccionMatriculas;
+
 
     public Matriculas() {
         coleccionMatriculas = new ArrayList<>();
+        comenzar();
     }
 
     public ArrayList<Matricula> get() throws OperationNotSupportedException {
@@ -36,14 +39,15 @@ public class Matriculas {
             throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
         }
 
-        int indice = this.coleccionMatriculas.indexOf(matricula);
 
+        int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
-            coleccionMatriculas.add(new Matricula(matricula));
+            this.coleccionMatriculas.add(new Matricula(matricula));
         } else {
             throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
     }
+
 
     public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula==null) {
@@ -54,7 +58,7 @@ public class Matriculas {
         if (indice == -1) {
             return null;
         } else {
-            return this.coleccionMatriculas.get(indice);
+            return new Matricula(this.coleccionMatriculas.get(indice));
         }
     }
 
@@ -63,10 +67,10 @@ public class Matriculas {
             throw new NullPointerException("ERROR: No se puede borrar una matricula nula.");
         }
         int indice = this.coleccionMatriculas.indexOf(matricula);
-        if (indice != -1) {
+        if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
-        coleccionMatriculas.remove(indice);
+        this.coleccionMatriculas.remove(indice);
     }
 
     public ArrayList<Matricula> get(Alumno alumno) throws OperationNotSupportedException {
@@ -103,4 +107,15 @@ public class Matriculas {
         }
         return aux;
     }
+
+    @Override
+    public void comenzar() {
+
+    }
+
+    @Override
+    public void terminar() {
+
+    }
+
 }

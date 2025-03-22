@@ -4,115 +4,112 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.*;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Modelo {
 
-    private Alumnos alumnos;
-    private Matriculas matriculas;
-    private Asignaturas asignaturas;
-    private CiclosFormativos ciclosFormativos;
+    private IAlumnos alumnos;
+    private IMatriculas matriculas;
+    private IAsignaturas asignaturas;
+    private ICiclosFormativos ciclosFormativos;
+    private IFuenteDatos fuenteDatos;
+
+    public Modelo(FactoriaFuenteDatos factoriaFuenteDatos) {
+        setFuenteDatos(factoriaFuenteDatos);
+    }
+
+    private void setFuenteDatos(FactoriaFuenteDatos factoriaFuenteDatos) {
+        this.fuenteDatos = factoriaFuenteDatos.crear();
+    }
 
     public void comenzar() {
-        this.alumnos = new Alumnos();
-        this.asignaturas = new Asignaturas();
-        this.ciclosFormativos = new CiclosFormativos();
-        this.matriculas = new Matriculas();
-
-        /* try {
-			Alumno a1 = new Alumno("Pepe", "12345678Z", "a@a.com", "666666666", LocalDate.of(2000, 1, 1));
-			insertar(a1);
-			CicloFormativo cf1 = new CicloFormativo(1234, "DAW", new GradoE("GE", 1, 1), "Desarrollo Aplicaciones Web", 20);
-			insertar(cf1);
-			Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
-			insertar(as1);
-			Matricula m1 = new Matricula(9876, "24-25", LocalDate.now(), a1, this.asignaturas.get());
-			insertar(m1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} */
+        this.alumnos = fuenteDatos.crearAlumnos();
+        this.asignaturas = fuenteDatos.crearAsignaturas();
+        this.ciclosFormativos = fuenteDatos.crearCiclosFormativos();
+        this.matriculas = fuenteDatos.crearMatriculas();
     }
+
     public void terminar() {
-        System.out.println("Aplicación terminada.");
+        this.alumnos.terminar();
+        this.asignaturas.terminar();
+        this.ciclosFormativos.terminar();
+        this.matriculas.terminar();
     }
 
-    public void insertar(Alumno alumno) throws OperationNotSupportedException {
+    public void insertar(Alumno alumno) throws OperationNotSupportedException, SQLException {
         this.alumnos.insertar(alumno);
     }
-
-    public Alumno buscar(Alumno alumno) {
+    public Alumno buscar(Alumno alumno) throws OperationNotSupportedException, SQLException {
         return this.alumnos.buscar(alumno);
     }
 
-    public void borrar(Alumno alumno) throws OperationNotSupportedException {
+    public void borrar(Alumno alumno) throws OperationNotSupportedException, SQLException {
         this.alumnos.borrar(alumno);
     }
-    public ArrayList<Alumno> getAlumnos() {
+
+    public ArrayList<Alumno> getAlumnos() throws OperationNotSupportedException, SQLException {
         return alumnos.get();
     }
 
-    public void insertar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void insertar(Asignatura asignatura) throws OperationNotSupportedException, SQLException {
         this.asignaturas.insertar(asignatura);
     }
-
-    public Asignatura buscar(Asignatura asignatura) {
+    public Asignatura buscar(Asignatura asignatura) throws SQLException {
         return this.asignaturas.buscar(asignatura);
     }
 
-    public void borrar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void borrar(Asignatura asignatura) throws OperationNotSupportedException, SQLException {
         this.asignaturas.borrar(asignatura);
     }
 
-    public ArrayList<Asignatura> getAsignaturas() {
+    public ArrayList<Asignatura> getAsignaturas() throws SQLException {
         return asignaturas.get();
     }
 
-    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         this.ciclosFormativos.insertar(cicloFormativo);
     }
 
-    public CicloFormativo buscar(CicloFormativo cicloFormativo) {
+    public CicloFormativo buscar(CicloFormativo cicloFormativo) throws SQLException {
         return this.ciclosFormativos.buscar(cicloFormativo);
     }
 
-    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         this.ciclosFormativos.borrar(cicloFormativo);
     }
-    public ArrayList<CicloFormativo> getCiclosFormativos() {
+
+    public ArrayList<CicloFormativo> getCiclosFormativos() throws SQLException {
         return ciclosFormativos.get();
     }
 
-    public void insertar(Matricula matricula) throws OperationNotSupportedException {
+    public void insertar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         this.matriculas.insertar(matricula);
     }
-    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
+
+    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         return this.matriculas.buscar(matricula);
     }
-
-    public void borrar(Matricula matricula) throws OperationNotSupportedException {
+    public void borrar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         this.matriculas.borrar(matricula);
     }
 
-    public ArrayList<Matricula> getMatriculas() throws OperationNotSupportedException {
+    public ArrayList<Matricula> getMatriculas() throws OperationNotSupportedException, SQLException {
         return matriculas.get();
     }
 
-    public ArrayList<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException {
+    public ArrayList<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException, SQLException {
         return matriculas.get(alumno);
     }
 
-
-    public ArrayList<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public ArrayList<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         return matriculas.get(cicloFormativo);
     }
 
-    public ArrayList<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
+    public ArrayList<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException, SQLException {
         return matriculas.get(cursoAcademico);
     }
 }
