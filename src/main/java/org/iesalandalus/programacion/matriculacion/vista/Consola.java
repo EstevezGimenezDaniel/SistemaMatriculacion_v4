@@ -1,14 +1,11 @@
 package org.iesalandalus.programacion.matriculacion.vista;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.Asignaturas;
 import org.iesalandalus.programacion.utilidades.Entrada;
 import javax.naming.OperationNotSupportedException;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Consola {

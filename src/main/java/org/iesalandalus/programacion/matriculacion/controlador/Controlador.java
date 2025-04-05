@@ -46,8 +46,12 @@ public class Controlador {
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException, SQLException {
+        if(!getMatriculas(alumno).isEmpty()) {
+            throw new OperationNotSupportedException("ERROR: No se puede borrar un alumno con matrículas");
+        }
         modelo.borrar(alumno);
     }
+
 
     public ArrayList<Alumno> getAlumnos() throws OperationNotSupportedException, SQLException {
         return modelo.getAlumnos();
@@ -62,6 +66,11 @@ public class Controlador {
     }
 
     public void borrar(Asignatura asignatura) throws OperationNotSupportedException, SQLException {
+        for (Matricula m : getMatriculas()) {
+            if(m.getColeccionAsignaturas().contains(asignatura)) {
+                throw new OperationNotSupportedException("ERROR: No se puede borrar una asignatura con matrículas");
+            }
+        }
         modelo.borrar(asignatura);
     }
 
@@ -78,6 +87,9 @@ public class Controlador {
     }
 
     public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
+        if(!getMatriculas(cicloFormativo).isEmpty()) {
+            throw new OperationNotSupportedException("ERROR: No se puede borrar un ciclo con matrículas");
+        }
         modelo.borrar(cicloFormativo);
     }
 
